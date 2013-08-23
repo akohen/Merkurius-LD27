@@ -50,7 +50,7 @@ public class RectangularBody extends PhysicsBody {
         groundBox.setAsBox(width/2, length/2);
         // Create a fixture from our polygon shape and add it to our ground body
         Fixture fixture = body.createFixture(groundBox, 0.0f);
-        fixture.setFriction(1.0f);
+        fixture.setFriction(0.5f);
 
         Filter filter = new Filter();
         filter.categoryBits = this.categoryBits;

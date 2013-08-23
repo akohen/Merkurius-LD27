@@ -1,14 +1,10 @@
 package merkurius.ld27.pong;
 
-import com.artemis.ComponentMapper;
 import com.artemis.Entity;
-import com.artemis.managers.TagManager;
 import com.artemis.systems.VoidEntitySystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 
-import fr.kohen.alexandre.framework.components.PhysicsBodyComponent;
 import fr.kohen.alexandre.framework.components.TextComponent;
 import fr.kohen.alexandre.framework.components.Transform;
 import fr.kohen.alexandre.framework.components.Velocity;
@@ -21,7 +17,6 @@ public class PongGameSystem extends VoidEntitySystem {
     private Entity ball;
     private Transform ballTransform;
     private Velocity ballVelocity;
-    private Body ballBody;
 
     private boolean gameOn = false;
 
@@ -47,11 +42,11 @@ public class PongGameSystem extends VoidEntitySystem {
         if (!gameOn){
             setBallOnMiddleAndApplyStrength();
         }
-        if (ballTransform.getPosition2().x < -380){
+        if (ballTransform.getPosition2().x < -380) {
             scoreRight = new StringBuffer(Integer.parseInt(scoreRight.toString()) + 1);
             setBallOnMiddleAndApplyStrength();
         }
-        else if (ballTransform.getPosition2().x > 380){
+        else if (ballTransform.getPosition2().x > 380) {
             scoreLeft = new StringBuffer(Integer.parseInt(scoreLeft.toString()) + 1);
             setBallOnMiddleAndApplyStrength();
         }
