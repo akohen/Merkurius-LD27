@@ -2,16 +2,21 @@ package merkurius.ld27.pong;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
+import fr.kohen.alexandre.framework.base.C;
 import fr.kohen.alexandre.framework.model.PhysicsBody;
 
 public class CircularBody extends PhysicsBody {
 
     private float radius;
     private BodyType bodyType;
+    private short categoryBits = C.CATEGORY_PLAYER;
+    private short maskBits = -1;
 
     public CircularBody(float radius, BodyType bodyType){
         this.bodyType = bodyType;
@@ -38,12 +43,18 @@ public class CircularBody extends PhysicsBody {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circle;
         fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.4f;
-        fixtureDef.restitution = 0.6f; // Make it bounce a little bit
+        fixtureDef.friction = 0.5f;
+        fixtureDef.restitution = 1.0f; // Make it bounce a little bit
 
         // Create our fixture and attach it to the body
         //Fixture fixture = body.createFixture(fixtureDef);
-        body.createFixture(fixtureDef);
+        Fixture fixture = body.createFixture(fixtureDef);
+        
+        Filter filter = new Filter();
+        filter.categoryBits = this.categoryBits;
+        filter.maskBits = this.maskBits;
+
+        fixture.setFilterData(filter);
 
         // Remember to dispose of any shapes after you're done with them!
         // BodyDef and FixtureDef don't need disposing, but shapes do.

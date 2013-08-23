@@ -2,9 +2,12 @@ package merkurius.ld27.pong;
 
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
+import com.artemis.managers.TagManager;
 import com.artemis.systems.VoidEntitySystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+
 import fr.kohen.alexandre.framework.components.PhysicsBodyComponent;
 import fr.kohen.alexandre.framework.components.TextComponent;
 import fr.kohen.alexandre.framework.components.Transform;
@@ -31,15 +34,16 @@ public class PongGameSystem extends VoidEntitySystem {
         rightDisplay.addToWorld();
         scoreLeft = leftDisplay.getComponent(TextComponent.class).text;
         scoreRight = rightDisplay.getComponent(TextComponent.class).text;
-//
-//        ball = world.getManager(TagManager.class).getEntity("ball");
-//        ballTransform = ball.getComponent(Transform.class);
-//        ballVelocity = ball.getComponent(Velocity.class);
-       ballBody = ball.getComponent(PhysicsBodyComponent.class).getBody();
+
+        ball = EntityFactoryPong.newBall(world,1,0,0);
+        ball.addToWorld();
+        ballTransform = ball.getComponent(Transform.class);
+        ballVelocity = ball.getComponent(Velocity.class);
     }
 
     @Override
     protected void processSystem() {
+
         if (!gameOn){
             setBallOnMiddleAndApplyStrength();
         }
@@ -55,6 +59,9 @@ public class PongGameSystem extends VoidEntitySystem {
 
     private void setBallOnMiddleAndApplyStrength(){
         ballTransform.setPosition(new Vector2(0,0));
+        ballVelocity.setSpeed(250, 0);
+        Gdx.app.log("GameSystem", "start");
+        gameOn = true;
 //        float angle = Math.random()
 //        ballBody.applyForceToCenter( new Vector2(0,1).setAngle(45));
 
