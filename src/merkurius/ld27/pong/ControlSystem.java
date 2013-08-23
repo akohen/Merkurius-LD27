@@ -4,6 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -17,7 +18,7 @@ public class ControlSystem extends EntityProcessingSystem {
 
 	protected ComponentMapper<Velocity> 	velocityMapper;
 	protected ComponentMapper<EntityState> 	stateMapper;
-	protected float 						force = 1;
+	protected float 						force = 1000;
 	private ComponentMapper<PhysicsBodyComponent> bodyMapper;
 
 	@SuppressWarnings("unchecked")
@@ -42,6 +43,9 @@ public class ControlSystem extends EntityProcessingSystem {
 	
 		if ( KeyBindings.isKeyPressed("move_up") ) {
 			body.applyForceToCenter(0, force);
+			body.getLinearVelocity();
+			Gdx.app.log("ControlSystem", "Body velocity: " + body.getLinearVelocity());
+			//body.applyLinearImpulse(0, 100, 0, 0);
 		}
 		
 		if ( KeyBindings.isKeyPressed("move_down") ) {
