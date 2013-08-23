@@ -16,17 +16,20 @@ public class RectangularBody extends PhysicsBody {
     private int length;
     private short categoryBits = 0x0001;
     private short maskBits = -1;
+    private BodyType bodyType;
 
-    public RectangularBody(int width, int length) {
+    public RectangularBody(int width, int length, BodyType bodyType) {
         this.width = width;
         this.length = length;
+        this.bodyType = bodyType;
     }
 
-    public RectangularBody(int width, int length, short categoryBits, short maskBits) {
+    public RectangularBody(int width, int length, BodyType bodyType, short categoryBits, short maskBits) {
         this.width = width;
         this.length = length;
         this.categoryBits = categoryBits;
         this.maskBits = maskBits;
+        this.bodyType = bodyType;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class RectangularBody extends PhysicsBody {
         BodyDef bodyDef =new BodyDef();
         // Set its world position
         bodyDef.position.set(new Vector2(0, 10));
-        bodyDef.type = BodyType.StaticBody;
+        bodyDef.type = bodyType;
 
         // Create a body from the defintion and add it to the world
         body = box2dworld.createBody(bodyDef);

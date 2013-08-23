@@ -33,7 +33,8 @@ public class MainScreen extends GameScreen {
         }
         EntityFactoryPong.newPlayerPaddle(world,1,370,0).addToWorld();
         EntityFactoryPong.newEnnemyPaddle(world,1,-370,0).addToWorld();
-		EntityFactoryPong.newCamera(world, 1, 0, 0, 0, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, "cameraFollowPlayer").addToWorld();
+        EntityFactoryPong.newBall(world,1,0,0).addToWorld();
+		EntityFactoryPong.newCamera(world, 1, 0, 0, 0, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, "cameraDontFollowPlayer").addToWorld();
 	}
 
 }

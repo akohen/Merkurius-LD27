@@ -8,6 +8,7 @@ import com.artemis.World;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.graphics.Color;
 
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import fr.kohen.alexandre.framework.base.C;
 import fr.kohen.alexandre.framework.base.EntityFactory;
 import fr.kohen.alexandre.framework.components.DepthComponent;
@@ -22,6 +23,7 @@ import fr.kohen.alexandre.framework.model.Action;
 import fr.kohen.alexandre.framework.model.Visual;
 import fr.kohen.alexandre.framework.model.physicsBodies.BoxBody;
 import fr.kohen.alexandre.framework.model.visuals.BoxVisual;
+import fr.kohen.alexandre.framework.model.visuals.CircleVisual;
 
 public class EntityFactoryPong extends EntityFactory {
 
@@ -35,25 +37,41 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         visuals.put( "middle_limit", new BoxVisual(6, 10, Color.WHITE));
 		visuals.put( "example_player_visual", new BoxVisual(25, 25, Color.BLUE) );
         visuals.put( "paddle", new BoxVisual(12,100, Color.WHITE));
+        visuals.put( "ball", new CircleVisual(5, Color.WHITE));
 	}
+
+    public static Entity newBall(World world, int mapId, float x, float y){
+        Entity e = world.createEntity();
+        world.getManager(TagManager.class).register("ball", e);
+        e.addComponent(new Transform(mapId, x, y));
+        e.addComponent(new VisualComponent("ball"));
+        e.addComponent(new PhysicsBodyComponent(new CircularBody(5, BodyDef.BodyType.DynamicBody)));
+        e.addComponent(new EntityState());
+        e.addComponent(new Velocity());
+        return e;
+    }
 
     public static Entity newPlayerPaddle(World world, int mapId, float x, float y){
         Entity e = world.createEntity();
-        e.addComponent(new Transform(mapId,x,y));
+        world.getManager(TagManager.class).register("player", e);
+        e.addComponent(new Transform(mapId, x, y));
         e.addComponent(new VisualComponent("paddle"));
-        e.addComponent(new PhysicsBodyComponent(new RectangularBody(12,100)));
+        e.addComponent(new PhysicsBodyComponent(new RectangularBody(12,100, BodyDef.BodyType.DynamicBody)));
         e.addComponent(new EntityState());
         e.addComponent(new Player());
+        e.addComponent(new Velocity());
         return e;
     }
 
     public static Entity newEnnemyPaddle(World world, int mapId, float x, float y){
         Entity e = world.createEntity();
+        world.getManager(TagManager.class).register("ennemy", e);
         e.addComponent(new Transform(mapId,x,y));
         e.addComponent(new VisualComponent("paddle"));
-        e.addComponent(new PhysicsBodyComponent(new RectangularBody(12,100)));
+        e.addComponent(new PhysicsBodyComponent(new RectangularBody(12,100, BodyDef.BodyType.DynamicBody)));
         e.addComponent(new EntityState());
         e.addComponent(new Ennemy());
+        e.addComponent(new Velocity());
         return e;
     }
 
@@ -61,7 +79,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         Entity e = world.createEntity();
         e.addComponent(new Transform(mapId, 0, -297));
         e.addComponent(new VisualComponent("horizontal_limit"));
-        e.addComponent( new PhysicsBodyComponent(new BoxBody(1, C.CATEGORY_BACKGROUND, (short) ~C.CATEGORY_PLAYER)) );
+        e.addComponent(new PhysicsBodyComponent(new RectangularBody(804,6, BodyDef.BodyType.StaticBody, C.CATEGORY_BACKGROUND, (short) ~C.CATEGORY_PLAYER)) );
         e.addComponent(new DepthComponent(-1));
         return e;
     }
@@ -70,7 +88,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         Entity e = world.createEntity();
         e.addComponent(new Transform(mapId, 0, 297));
         e.addComponent(new VisualComponent("horizontal_limit"));
-        e.addComponent( new PhysicsBodyComponent(new BoxBody(1, C.CATEGORY_BACKGROUND, (short) ~C.CATEGORY_PLAYER)) );
+        e.addComponent(new PhysicsBodyComponent(new RectangularBody(804,6, BodyDef.BodyType.StaticBody, C.CATEGORY_BACKGROUND, (short) ~C.CATEGORY_PLAYER)) );
         e.addComponent(new DepthComponent(-1));
         return e;
     }
@@ -79,7 +97,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         Entity e = world.createEntity();
         e.addComponent(new Transform(mapId, -397,0));
         e.addComponent(new VisualComponent("vertical_limit"));
-        e.addComponent( new PhysicsBodyComponent(new BoxBody(1, C.CATEGORY_BACKGROUND, (short) ~C.CATEGORY_PLAYER)) );
+        e.addComponent(new PhysicsBodyComponent(new RectangularBody(6,604, BodyDef.BodyType.StaticBody, C.CATEGORY_BACKGROUND, (short) ~C.CATEGORY_PLAYER)) );
         e.addComponent(new DepthComponent(-1));
         return e;
     }
@@ -88,7 +106,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         Entity e = world.createEntity();
         e.addComponent(new Transform(mapId, 397,0));
         e.addComponent(new VisualComponent("vertical_limit"));
-        e.addComponent( new PhysicsBodyComponent(new BoxBody(1, C.CATEGORY_BACKGROUND, (short) ~C.CATEGORY_PLAYER)) );
+        e.addComponent(new PhysicsBodyComponent(new RectangularBody(6,604, BodyDef.BodyType.StaticBody, C.CATEGORY_BACKGROUND, (short) ~C.CATEGORY_PLAYER)) );
         e.addComponent(new DepthComponent(-1));
         return e;
     }
