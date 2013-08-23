@@ -53,7 +53,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 
     public static Entity newPlayerPaddle(World world, int mapId, float x, float y){
         Entity e = world.createEntity();
-        world.getManager(TagManager.class).register("player", e);
+        world.getManager(TagManager.class).register("playerRight", e);
         e.addComponent(new Transform(mapId, x, y));
         e.addComponent(new VisualComponent("paddle"));
         e.addComponent(new PhysicsBodyComponent(new PaddleBody(1.2f,10, BodyDef.BodyType.DynamicBody)));
@@ -65,7 +65,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 
     public static Entity newEnnemyPaddle(World world, int mapId, float x, float y){
         Entity e = world.createEntity();
-        world.getManager(TagManager.class).register("ennemy", e);
+        world.getManager(TagManager.class).register("playerLeft", e);
         e.addComponent(new Transform(mapId,x,y));
         e.addComponent(new VisualComponent("paddle"));
         e.addComponent(new PhysicsBodyComponent(new PaddleBody(1.2f,10, BodyDef.BodyType.DynamicBody)));
