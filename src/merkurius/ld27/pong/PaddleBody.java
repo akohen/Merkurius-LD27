@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 import fr.kohen.alexandre.framework.model.PhysicsBody;
 
-public class RectangularBody extends PhysicsBody {
+public class PaddleBody extends PhysicsBody {
 
     private float width;
     private float length;
@@ -18,17 +18,9 @@ public class RectangularBody extends PhysicsBody {
     private short maskBits = -1;
     private BodyType bodyType;
 
-    public RectangularBody(float width, float length, BodyType bodyType) {
+    public PaddleBody(float width, float length, BodyType bodyType) {
         this.width = width;
         this.length = length;
-        this.bodyType = bodyType;
-    }
-
-    public RectangularBody(float width, float length, BodyType bodyType, short categoryBits, short maskBits) {
-        this.width = width;
-        this.length = length;
-        this.categoryBits = categoryBits;
-        this.maskBits = maskBits;
         this.bodyType = bodyType;
     }
 
@@ -50,15 +42,19 @@ public class RectangularBody extends PhysicsBody {
         groundBox.setAsBox(width/2, length/2);
         // Create a fixture from our polygon shape and add it to our ground body
         Fixture fixture = body.createFixture(groundBox, 0.0f);
-        fixture.setFriction(1.0f);
+        fixture.setFriction(0.0f);
+        fixture.setDensity(0);
 
         Filter filter = new Filter();
         filter.categoryBits = this.categoryBits;
         filter.maskBits = this.maskBits;
 
         fixture.setFilterData(filter);
+        
 
         // Clean up after ourselves
         groundBox.dispose();
+        body.setLinearDamping(8);
+        body.resetMassData();
     }
 }
