@@ -1,22 +1,21 @@
 package merkurius.ld27.pong;
 
-import com.artemis.ComponentMapper;
 import com.artemis.Entity;
-import com.artemis.managers.TagManager;
 import com.artemis.systems.VoidEntitySystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
-import fr.kohen.alexandre.framework.components.PhysicsBodyComponent;
 import fr.kohen.alexandre.framework.components.TextComponent;
 import fr.kohen.alexandre.framework.components.Transform;
 import fr.kohen.alexandre.framework.components.Velocity;
 
 public class PongGameSystem extends VoidEntitySystem {
 
-    private StringBuffer scoreLeft;
-    private StringBuffer scoreRight;
+    private int scoreLeft = 0;
+    private int scoreRight = 0;
+    private StringBuffer bufferScoreLeft;
+    private StringBuffer bufferScoreRight;
 
     private Entity ball;
     private Transform ballTransform;
@@ -25,15 +24,13 @@ public class PongGameSystem extends VoidEntitySystem {
 
     private boolean gameOn = false;
 
-
-    @Override
     public void initialize(){
         Entity leftDisplay = EntityFactoryPong.newScoreDisplay(world,1,50,270,"Right");
         Entity rightDisplay = EntityFactoryPong.newScoreDisplay(world,1,-50,270,"Left");
         leftDisplay.addToWorld();
         rightDisplay.addToWorld();
-        scoreLeft = leftDisplay.getComponent(TextComponent.class).text;
-        scoreRight = rightDisplay.getComponent(TextComponent.class).text;
+        bufferScoreLeft = leftDisplay.getComponent(TextComponent.class).text;
+        bufferScoreRight = rightDisplay.getComponent(TextComponent.class).text;
 
         ball = EntityFactoryPong.newBall(world,1,0,0);
         ball.addToWorld();
@@ -43,18 +40,24 @@ public class PongGameSystem extends VoidEntitySystem {
 
     @Override
     protected void processSystem() {
-
         if (!gameOn){
             setBallOnMiddleAndApplyStrength();
+            gameOn = true;
         }
         if (ballTransform.getPosition2().x < -380){
-            scoreRight = new StringBuffer(Integer.parseInt(scoreRight.toString()) + 1);
+            bufferScoreRight = new StringBuffer(""+scoreRight++);
             setBallOnMiddleAndApplyStrength();
+            displayScores();
         }
         else if (ballTransform.getPosition2().x > 380){
-            scoreLeft = new StringBuffer(Integer.parseInt(scoreLeft.toString()) + 1);
+            bufferScoreLeft = new StringBuffer(""+scoreLeft++);
             setBallOnMiddleAndApplyStrength();
+            displayScores();
         }
+    }
+
+    private void displayScores(){
+        System.out.println(scoreLeft+", "+scoreRight+" / "+bufferScoreLeft+", "+bufferScoreRight);
     }
 
     private void setBallOnMiddleAndApplyStrength(){
