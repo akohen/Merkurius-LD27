@@ -9,7 +9,7 @@ public class PongController extends GameController {
 		this.addScreen(new MainScreen(), "serverScreen");
 		this.addScreen(new MainScreen(), "clientScreen");
 		this.addScreen(new MenuScreen(), "menuScreen");
-		setScreen("menuScreen");
+		setScreen("serverScreen");
 	}
 
 }

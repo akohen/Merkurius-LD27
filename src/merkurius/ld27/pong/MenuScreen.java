@@ -30,8 +30,8 @@ public class MenuScreen extends GameScreen {
 	
 	@Override
 	protected void initialize() {
-		EntityFactoryPong.newBox(world, 1, 0, 0, 50).addToWorld();
-		EntityFactoryPong.newCamera(world, 1, 0, 0, 0, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, "cameraFollowPlayer").addToWorld();
+		
+		EntityFactoryPong.newCamera(world, 1, 0, 0, 0, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, "camera").addToWorld();
 	}
 
 }
