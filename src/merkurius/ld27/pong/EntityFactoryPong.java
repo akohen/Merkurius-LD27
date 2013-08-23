@@ -34,11 +34,28 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         visuals.put( "vertical_limit", new BoxVisual(6, 604, Color.WHITE));
         visuals.put( "middle_limit", new BoxVisual(6, 10, Color.WHITE));
 		visuals.put( "example_player_visual", new BoxVisual(25, 25, Color.BLUE) );
-		visuals.put( "example_box_50", new BoxVisual(50, 50, Color.RED) );
-		visuals.put( "example_box_100", new BoxVisual(100, 100, Color.RED) );
-		visuals.put( "example_box_green_50", new BoxVisual(50, 50, Color.GREEN) );
-		visuals.put( "example_box_green_100", new BoxVisual(100, 100, Color.GREEN) );
+        visuals.put( "paddle", new BoxVisual(12,100, Color.WHITE));
 	}
+
+    public static Entity newPlayerPaddle(World world, int mapId, float x, float y){
+        Entity e = world.createEntity();
+        e.addComponent(new Transform(mapId,x,y));
+        e.addComponent(new VisualComponent("paddle"));
+        e.addComponent(new PhysicsBodyComponent(new RectangularBody(12,100)));
+        e.addComponent(new EntityState());
+        e.addComponent(new Player());
+        return e;
+    }
+
+    public static Entity newEnnemyPaddle(World world, int mapId, float x, float y){
+        Entity e = world.createEntity();
+        e.addComponent(new Transform(mapId,x,y));
+        e.addComponent(new VisualComponent("paddle"));
+        e.addComponent(new PhysicsBodyComponent(new RectangularBody(12,100)));
+        e.addComponent(new EntityState());
+        e.addComponent(new Ennemy());
+        return e;
+    }
 
     public static Entity newBottomBar(World world, int mapId){
         Entity e = world.createEntity();

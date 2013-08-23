@@ -38,6 +38,8 @@ public class MainScreen extends GameScreen {
         for (int y=-300; y<=300; y+=20){
             EntityFactoryPong.newMiddleFrontierPart(world,1,y).addToWorld();
         }
+        EntityFactoryPong.newPlayerPaddle(world,1,370,0).addToWorld();
+        EntityFactoryPong.newEnnemyPaddle(world,1,-370,0).addToWorld();
 		EntityFactoryPong.newCamera(world, 1, 0, 0, 0, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, "cameraFollowPlayer").addToWorld();
 	}
 
