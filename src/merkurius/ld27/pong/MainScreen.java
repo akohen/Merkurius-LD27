@@ -3,11 +3,7 @@ package merkurius.ld27.pong;
 import com.badlogic.gdx.Gdx;
 
 import fr.kohen.alexandre.framework.base.GameScreen;
-import fr.kohen.alexandre.framework.systems.DefaultBox2DSystem;
-import fr.kohen.alexandre.framework.systems.DefaultCameraSystem;
-import fr.kohen.alexandre.framework.systems.DefaultDebugSystem;
-import fr.kohen.alexandre.framework.systems.DefaultRenderSystem;
-import fr.kohen.alexandre.framework.systems.DefaultVisualSystem;
+import fr.kohen.alexandre.framework.systems.*;
 
 public class MainScreen extends GameScreen {
 
@@ -19,6 +15,8 @@ public class MainScreen extends GameScreen {
 		world.setSystem( new DefaultVisualSystem(EntityFactoryPong.visuals) );
 		world.setSystem( new DefaultBox2DSystem() );
 		world.setSystem( new DefaultDebugSystem() );
+        world.setSystem( new DefaultTextSystem() );
+        world.setSystem( new PongGameSystem() );
 	}
 	
 	@Override

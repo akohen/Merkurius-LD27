@@ -40,6 +40,16 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         visuals.put( "ball", new CircleVisual(5, Color.WHITE));
 	}
 
+    public static Entity newScoreDisplay(World world, int mapId, float x, float y, String side){
+        Entity e = world.createEntity();
+        world.getManager(TagManager.class).register("display"+side, e);
+        e.addComponent( new Transform(mapId, x, y) );
+        e.addComponent( new TextComponent("0", Color.WHITE) );
+        e.addComponent( new EntityState() );
+        e.addComponent( new DepthComponent(10) );
+        return e;
+    }
+
     public static Entity newBall(World world, int mapId, float x, float y){
         Entity e = world.createEntity();
         world.getManager(TagManager.class).register("ball", e);
