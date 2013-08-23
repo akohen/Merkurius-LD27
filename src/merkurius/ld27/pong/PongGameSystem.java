@@ -4,7 +4,6 @@ import com.artemis.Entity;
 import com.artemis.systems.VoidEntitySystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 
 import fr.kohen.alexandre.framework.components.TextComponent;
 import fr.kohen.alexandre.framework.components.Transform;
@@ -20,10 +19,11 @@ public class PongGameSystem extends VoidEntitySystem {
     private Entity ball;
     private Transform ballTransform;
     private Velocity ballVelocity;
-    private Body ballBody;
 
     private boolean gameOn = false;
 
+
+    @Override
     public void initialize(){
         Entity leftDisplay = EntityFactoryPong.newScoreDisplay(world,1,50,270,"Right");
         Entity rightDisplay = EntityFactoryPong.newScoreDisplay(world,1,-50,270,"Left");
@@ -40,6 +40,7 @@ public class PongGameSystem extends VoidEntitySystem {
 
     @Override
     protected void processSystem() {
+
         if (!gameOn){
             setBallOnMiddleAndApplyStrength();
             gameOn = true;
@@ -50,7 +51,7 @@ public class PongGameSystem extends VoidEntitySystem {
             displayScores();
         }
         else if (ballTransform.getPosition2().x > 380){
-            bufferScoreLeft = new StringBuffer(""+scoreLeft++);
+            scoreLeft = new StringBuffer(Integer.parseInt(scoreLeft.toString()) + 1);
             setBallOnMiddleAndApplyStrength();
             displayScores();
         }

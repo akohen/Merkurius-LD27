@@ -44,7 +44,7 @@ public class CircularBody extends PhysicsBody {
         fixtureDef.shape = circle;
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.5f;
-        fixtureDef.restitution = 1.0f; // Make it bounce a little bit
+        fixtureDef.restitution = 1.1f; // Make it bounce a little bit
 
         // Create our fixture and attach it to the body
         //Fixture fixture = body.createFixture(fixtureDef);
@@ -55,10 +55,12 @@ public class CircularBody extends PhysicsBody {
         filter.maskBits = this.maskBits;
 
         fixture.setFilterData(filter);
+        fixture.setDensity(0.1f);
 
         // Remember to dispose of any shapes after you're done with them!
         // BodyDef and FixtureDef don't need disposing, but shapes do.
         circle.dispose();
+        body.resetMassData();
 
     }
 

@@ -8,13 +8,14 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
+import fr.kohen.alexandre.framework.base.C;
 import fr.kohen.alexandre.framework.model.PhysicsBody;
 
 public class PaddleBody extends PhysicsBody {
 
     private float width;
     private float length;
-    private short categoryBits = 0x0001;
+    private short categoryBits = C.CATEGORY_PLAYER;
     private short maskBits = -1;
     private BodyType bodyType;
 

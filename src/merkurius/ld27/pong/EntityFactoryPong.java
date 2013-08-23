@@ -89,7 +89,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         Entity e = world.createEntity();
         e.addComponent(new Transform(mapId, 0, -297));
         e.addComponent(new VisualComponent("horizontal_limit"));
-        e.addComponent(new PhysicsBodyComponent(new RectangularBody(80.4f,0.6f, BodyDef.BodyType.StaticBody, C.CATEGORY_BACKGROUND, (short) ~C.CATEGORY_PLAYER)) );
+        e.addComponent(new PhysicsBodyComponent(new RectangularBody(80.4f,0.6f, BodyDef.BodyType.StaticBody)) );
         e.addComponent(new DepthComponent(-1));
         return e;
     }
@@ -98,7 +98,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         Entity e = world.createEntity();
         e.addComponent(new Transform(mapId, 0, 297));
         e.addComponent(new VisualComponent("horizontal_limit"));
-        e.addComponent(new PhysicsBodyComponent(new RectangularBody(80.4f,0.6f, BodyDef.BodyType.StaticBody, C.CATEGORY_BACKGROUND, (short) ~C.CATEGORY_PLAYER)) );
+        e.addComponent(new PhysicsBodyComponent(new RectangularBody(80.4f,0.6f, BodyDef.BodyType.StaticBody)) );
         e.addComponent(new DepthComponent(-1));
         return e;
     }
