@@ -13,7 +13,7 @@ public class MainScreen extends GameScreen {
 		world.setSystem( new ControlSystem() );
 		world.setSystem( new DefaultRenderSystem() );
 		world.setSystem( new DefaultVisualSystem(EntityFactoryPong.visuals) );
-		world.setSystem( new DefaultBox2DSystem() );
+		world.setSystem( new ScaledBox2DSystem() );
 		world.setSystem( new DefaultDebugSystem() );
         world.setSystem( new DefaultTextSystem() );
         world.setSystem( new PongGameSystem() );
