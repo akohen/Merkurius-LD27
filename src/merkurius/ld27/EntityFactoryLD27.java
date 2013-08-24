@@ -37,7 +37,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         return e;
     }
 
-    public static Entity newActor(World world, int mapId, float x, float y, String visual){
+    public static Entity newActor(World world, int mapId, float x, float y, String visual, int timeToLive){
         Entity e = world.createEntity();
         e.addComponent( new Transform(mapId, x, y,1) );
         e.addComponent( new Velocity() );
@@ -45,19 +45,19 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         e.addComponent( new PhysicsBodyComponent(new PlayerBody()) );
         e.addComponent( new Actor() );
         e.addComponent( new EntityState() );
-        e.addComponent( new Expires(10000) );
+        e.addComponent( new Expires(timeToLive) );
         return e;
     }
 
     public static Entity newPlayer(World world, int mapId, float x, float y) {
-        Entity e = newActor(world, mapId, x, y, "lord_lard")
+        Entity e = newActor(world, mapId, x, y, "lord_lard",10000)
                 .addComponent(new Player());
         world.getManager(TagManager.class).register("player", e);
         return e;
     }
 
-    public static Entity newEnnemy(World world, int mapId, float x, float y) {
-        return newActor(world, mapId, x, y, "lord_lard").addComponent(new NPC());
+    public static Entity newEnnemy(World world, int mapId, float x, float y, int timeToLive) {
+        return newActor(world, mapId, x, y, "lord_lard",timeToLive).addComponent(new NPC());
     }
 
 	public static Entity newCircle(World world, int mapId, float x, float y) {

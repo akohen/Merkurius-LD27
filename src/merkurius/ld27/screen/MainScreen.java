@@ -4,6 +4,7 @@ import fr.kohen.alexandre.framework.systems.*;
 import merkurius.ld27.EntityFactoryLD27;
 import fr.kohen.alexandre.framework.base.GameScreen;
 import merkurius.ld27.system.PlayerSystem;
+import merkurius.ld27.system.SpawnSystem;
 
 public class MainScreen extends GameScreen {
 
@@ -20,18 +21,12 @@ public class MainScreen extends GameScreen {
 		world.setSystem( new DefaultMouseSystem() );
         world.setSystem( new PlayerSystem() );
         world.setSystem( new DefaultTextSystem() );
+        world.setSystem( new SpawnSystem() );
 	}
 	
 	@Override
 	protected void initialize() {
 		EntityFactoryLD27.newPlayer(world, 1, 0, 125).addToWorld();
-		
-		EntityFactoryLD27.newCircle(world, 1, 0, 0).addToWorld();
-
-        for (int i=-380; i< 380 ; i+= 20){
-            EntityFactoryLD27.newEnnemy(world,1,i, -50).addToWorld();
-        }
-
 		EntityFactoryLD27.newCamera(world, 1, 0, 0, 0, 0, 0, 800, 600, 0, "testCamera").addToWorld();
 	}
 
