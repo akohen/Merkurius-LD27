@@ -32,7 +32,7 @@ public class LD27AnimationSystem extends EntityProcessingSystem implements Anima
 	
 	@SuppressWarnings("unchecked")
 	public LD27AnimationSystem() {
-		super( Aspect.getAspectForAll(VisualComponent.class, Shooter.class, Velocity.class) );
+		super( Aspect.getAspectForAll(VisualComponent.class, Velocity.class) );
 	}
 	
 	@Override
@@ -45,8 +45,10 @@ public class LD27AnimationSystem extends EntityProcessingSystem implements Anima
 	@Override
 	protected void process(Entity e) {
 		visualMapper.get(e).stateTime += world.getDelta();
-		if( velocityMapper.getSafe(e) != null ) {
+		if( shooterMapper.has(e) ) {
 			setCurrentAnim( visualMapper.get(e), shooterMapper.get(e).getShootingVector(), velocityMapper.get(e).getSpeed() );
+		} else {
+			setCurrentAnim( visualMapper.get(e), velocityMapper.get(e).getSpeed(), velocityMapper.get(e).getSpeed() );
 		}
 	}
 	
