@@ -11,7 +11,7 @@ public class MainScreen extends GameScreen {
 	protected void setSystems() {	
 		world.setSystem( new DefaultCameraSystem() );
 		world.setSystem( new DefaultAnimationSystem() );
-		world.setSystem( new DefaultControlSystem(40) );
+		world.setSystem( new DefaultControlSystem(50) );
 		world.setSystem( new DefaultRenderSystem() );
 		world.setSystem( new DefaultVisualSystem(EntityFactoryLD27.visuals) );
 		world.setSystem( new ScaledBox2DSystem() );
@@ -29,7 +29,8 @@ public class MainScreen extends GameScreen {
 	@Override
 	protected void initialize() {
 		EntityFactoryLD27.newPlayer(world, 1, 0, 125).addToWorld();
-		EntityFactoryLD27.newCamera(world, 1, 0, 0, 0, 0, 0, 800, 600, 0, "testCamera").addToWorld();
+		EntityFactoryLD27.newCamera(world, 1, 0, 0, 0, 0, 0, 800, 600, 0, "cameraFollowPlayer").addToWorld();
+		EntityFactoryLD27.newCamera(world, 2, 0, 0, 0, 0, 0, 800, 600, 0, "cameraInterface").addToWorld();
 	}
 
 }

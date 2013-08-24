@@ -40,7 +40,7 @@ public class PlayerSystem extends EntityProcessingSystem {
         transformMapper = ComponentMapper.getFor(Transform.class, world);
         shooterMapper   = ComponentMapper.getFor(Shooter.class, world);
 
-        Entity timeToLiveDisplay = EntityFactoryLD27.newTimeToLiveDisplay(world, 1, 0, 280, "");
+        Entity timeToLiveDisplay = EntityFactoryLD27.newTimeToLiveDisplay(world, 2, 0, 280, "");
         timeToLiveDisplay.addToWorld();
         timeToLiveDisplayComponent = timeToLiveDisplay.getComponent(TextComponent.class);
     }
@@ -48,7 +48,7 @@ public class PlayerSystem extends EntityProcessingSystem {
     @Override
     protected void begin(){
         if (mouse == null){
-            mouse = world.getManager(TagManager.class).getEntity("testCamera").getComponent(CameraComponent.class).mouse;
+            mouse = world.getManager(TagManager.class).getEntity("cameraFollowPlayer").getComponent(CameraComponent.class).mouse;
             mouseComponent = mouse.getComponent(Mouse.class);
             mouseTransform = mouse.getComponent(Transform.class);
         }
