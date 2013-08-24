@@ -29,7 +29,7 @@ public class MainScreen extends GameScreen {
 	
 	@Override
 	protected void initialize() {
-		//EntityFactoryExamples.newLordLard(world, 1, 0, 125).addToWorld();
+		EntityFactoryLD27.newPlayer(world, 1, 0, 125).addToWorld();
 		
 		//EntityFactoryTest.newBox(world, 1, 100, 0, 50).addToWorld();
 		EntityFactoryLD27.newCircle(world, 1, 0, 0).addToWorld();
