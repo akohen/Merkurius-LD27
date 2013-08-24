@@ -31,6 +31,10 @@ public class MainScreen extends GameScreen {
 		EntityFactoryLD27.newPlayer(world, 1, 0, 125).addToWorld();
 		EntityFactoryLD27.newCamera(world, 1, 0, 0, 0, 0, 0, 800, 600, 0, "cameraFollowPlayer").addToWorld();
 		EntityFactoryLD27.newCamera(world, 2, 0, 0, 0, 0, 0, 800, 600, 0, "cameraInterface").addToWorld();
+
+        for (int i=-400;i<400; i+=80){
+            EntityFactoryLD27.newWallDisplay(world,1,i,-150,20,20).addToWorld();
+        }
 	}
 
 }
