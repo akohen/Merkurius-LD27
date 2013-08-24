@@ -6,9 +6,7 @@ import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.math.Vector2;
-import fr.kohen.alexandre.framework.base.Systems;
 import fr.kohen.alexandre.framework.components.*;
-import fr.kohen.alexandre.framework.systems.interfaces.PhysicsSystem;
 import merkurius.ld27.EntityFactoryLD27;
 import merkurius.ld27.component.Shooter;
 
@@ -61,7 +59,8 @@ public class PlayerSystem extends EntityProcessingSystem {
         double timeToLive = expiresMapper.get(e).getLifeTime() / 1000.0;
         timeToLiveDisplayComponent.text = new StringBuffer(NUMBER_FORMATTER.format(timeToLive));
         if (mouseComponent.clicked){
-            shooterMapper.get(e).trigger(mouseTransform.getPosition2().sub(transformMapper.get(e).getPosition2().limit(1)));
+            Vector2 direction = mouseTransform.getPosition2().sub(transformMapper.get(e).getPosition2()).limit(10);
+            shooterMapper.get(e).trigger(transformMapper.get(e).getPosition2(),direction);
         }
     }
 }
