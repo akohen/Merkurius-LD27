@@ -20,7 +20,8 @@ public class MainScreen extends GameScreen {
 		world.setSystem( new DefaultBox2DSystem() );
 		world.setSystem( new DefaultExpirationSystem() );
 		world.setSystem( new DefaultDebugSystem() );	
-		world.setSystem( new DefaultMouseSystem() );
+		world.setSystem( new DefaultMouseSystem() );	
+		world.setSystem( new DefaultActionSystem(EntityFactoryLD27.actions) );
         world.setSystem( new PlayerSystem() );
         world.setSystem( new DefaultTextSystem() );
         world.setSystem( new SpawnSystem() );

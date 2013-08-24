@@ -8,7 +8,7 @@ import merkurius.ld27.component.NPC;
 
 public class SpawnSystem extends EntityProcessingSystem {
 
-    private int numberOfEnnemiesToAdd = 25;
+    private int numberOfEnnemiesToAdd = 2;
 
     @SuppressWarnings("unchecked")
     public SpawnSystem() {

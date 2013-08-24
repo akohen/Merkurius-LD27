@@ -5,6 +5,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.math.Vector2;
+
 import fr.kohen.alexandre.framework.components.Transform;
 import fr.kohen.alexandre.framework.components.Velocity;
 import merkurius.ld27.EntityFactoryLD27;
@@ -16,7 +17,8 @@ public class ShootingSystem extends EntityProcessingSystem {
     protected ComponentMapper<Transform> 	transformMapper;
     protected ComponentMapper<Velocity>     velocityMapper;
 
-    public ShootingSystem() {
+    @SuppressWarnings("unchecked")
+	public ShootingSystem() {
         super(Aspect.getAspectForAll(Shooter.class, Transform.class, Velocity.class));
     }
 
@@ -34,12 +36,12 @@ public class ShootingSystem extends EntityProcessingSystem {
             Vector2 bulletPosition = transformMapper.get(e).getPosition2().cpy().add(shooterMapper.get(e).getShootingVector());
             Vector2 bulletSpeed = new Vector2(0,4000);
             bulletSpeed.setAngle(shooterMapper.get(e).getShootingVector().angle());
-            Entity bullet = EntityFactoryLD27.newBullet(world, 1, bulletPosition, 3000);
+            Entity bullet = EntityFactoryLD27.newBullet( world, 1, bulletPosition, 3000, e.getId() );
             bullet.addToWorld();
             velocityMapper.get(bullet).setSpeed(bulletSpeed);
             shooterMapper.get(e).setTimer(1000);
-        }
-        else{
+            shooterMapper.get(e).setWantToShoot(false);
+        } else{
             shooterMapper.get(e).setWantToShoot(false);
         }
     }

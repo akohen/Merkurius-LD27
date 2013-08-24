@@ -7,6 +7,7 @@ import com.artemis.managers.GroupManager;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.math.Vector2;
+
 import fr.kohen.alexandre.framework.components.Transform;
 import fr.kohen.alexandre.framework.components.Velocity;
 import merkurius.ld27.component.NPC;
@@ -20,7 +21,8 @@ public class NpcSystem extends EntityProcessingSystem {
 
     private ImmutableBag<Entity> actors;
 
-    public NpcSystem() {
+    @SuppressWarnings("unchecked")
+	public NpcSystem() {
         super(Aspect.getAspectForAll(NPC.class, Shooter.class, Transform.class, Velocity.class));
     }
 
@@ -67,6 +69,6 @@ public class NpcSystem extends EntityProcessingSystem {
     }
 
     private Vector2 direction(Entity first, Entity target){
-       return  transformMapper.get(target).getPosition2().cpy().sub(transformMapper.get(first).getPosition2());
+       return  transformMapper.get(target).getPosition2().cpy().sub(transformMapper.get(first).getPosition2()).nor().mul(10);
     }
 }
