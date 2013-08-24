@@ -3,12 +3,15 @@ package merkurius.ld27;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.kohen.alexandre.framework.model.physicsBodies.BoxBody;
+import fr.kohen.alexandre.framework.model.visuals.BoxVisual;
 import merkurius.ld27.component.Actor;
 import merkurius.ld27.component.NPC;
 import merkurius.ld27.component.Shooter;
 import merkurius.ld27.models.BulletAction;
 import merkurius.ld27.models.BulletBody;
 import merkurius.ld27.models.PlayerBody;
+import merkurius.ld27.models.WallBody;
 import merkurius.ld27.visuals.LordLardVisual;
 
 import com.artemis.Entity;
@@ -43,9 +46,19 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         visuals.put( "herr_von_speck", new LordLardVisual("herr_von_speck_sheet.png") );
         visuals.put( "circle", new CircleVisual(50, Color.RED) );
         visuals.put( "bullet", new CircleVisual(5, Color.GREEN));
+        visuals.put( "wall", new BoxVisual(20,20, Color.BLUE));
         
         actions.put( "bullet_action", new BulletAction() );
 	}
+
+    public static Entity newWallDisplay(World world, int mapId, int x, int y, int width, int height){
+        Entity e = world.createEntity();
+        e.addComponent( new Transform(mapId, x, y, -1) );
+        e.addComponent( new VisualComponent("wall") );
+        e.addComponent( new PhysicsBodyComponent(new WallBody(width / 10 ,height / 10)) );
+        world.getManager(GroupManager.class).add(e,"solid");
+        return e;
+    }
 
     public static Entity newTimeToLiveDisplay(World world, int mapId, float x, float y, String text) {
         Entity e = world.createEntity();

@@ -1,5 +1,6 @@
 package merkurius.ld27.models;
 
+import com.artemis.managers.GroupManager;
 import merkurius.ld27.component.Actor;
 
 import com.artemis.ComponentMapper;
@@ -44,13 +45,22 @@ public class BulletAction implements Action {
 	public void preSolve(Entity e, Entity other, Contact contact) {
 		Entity parent = world.getEntity( parentMapper.get(e).getParentId() );
 		if ( parent != other && actorMapper.has(other) ) {
-			expiresMapper.get(other).reduceLifeTime(4000);
+            System.out.println("if");
+            expiresMapper.get(other).reduceLifeTime(4000);
 			if( parent != null && parent.isActive() ) {
 				expiresMapper.get(parent).increaseLifeTime(2000);
 			}
 			e.deleteFromWorld();
 			contact.setEnabled(false);
 		}
+        else if (world.getManager(GroupManager.class).inInGroup(e,"solid")){
+            System.out.println("else if");
+           e.deleteFromWorld();
+           contact.setEnabled(false);
+        }
+        else{
+            System.out.println("else");
+        }
 	}
 
 	@Override
