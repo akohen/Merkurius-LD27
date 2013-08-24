@@ -3,8 +3,6 @@ package merkurius.ld27;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.kohen.alexandre.framework.model.physicsBodies.BoxBody;
-import fr.kohen.alexandre.framework.model.visuals.BoxVisual;
 import merkurius.ld27.component.Actor;
 import merkurius.ld27.component.NPC;
 import merkurius.ld27.component.Shooter;
@@ -34,6 +32,7 @@ import fr.kohen.alexandre.framework.components.Velocity;
 import fr.kohen.alexandre.framework.components.VisualComponent;
 import fr.kohen.alexandre.framework.model.Action;
 import fr.kohen.alexandre.framework.model.Visual;
+import fr.kohen.alexandre.framework.model.visuals.BoxVisual;
 import fr.kohen.alexandre.framework.model.visuals.CircleVisual;
 
 public class EntityFactoryLD27 extends EntityFactory {
