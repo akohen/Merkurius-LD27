@@ -12,7 +12,7 @@ public class MainScreen extends GameScreen {
 		world.setSystem( new DefaultCameraSystem() );
 		world.setSystem( new LD27AnimationSystem() );
 		world.setSystem( new DefaultControlSystem(50) );
-		world.setSystem( new DefaultRenderSystem() );
+		world.setSystem( new DefaultRenderSystem(0,0,0,0) );
 		world.setSystem( new DefaultVisualSystem(EntityFactoryLD27.visuals) );
 		world.setSystem( new ScaledBox2DSystem() );
 		world.setSystem( new DefaultExpirationSystem() );

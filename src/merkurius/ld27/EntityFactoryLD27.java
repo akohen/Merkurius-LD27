@@ -62,7 +62,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
     public static Entity newTimeToLiveDisplay(World world, int mapId, float x, float y, String text) {
         Entity e = world.createEntity();
         e.addComponent( new Transform(mapId, x, y, -1) );
-        e.addComponent( new TextComponent(text,Color.BLACK) );
+        e.addComponent( new TextComponent(text,Color.WHITE) );
         e.addComponent( new EntityState() );
         return e;
     }
