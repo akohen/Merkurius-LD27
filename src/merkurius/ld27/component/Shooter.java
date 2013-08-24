@@ -13,12 +13,10 @@ public class Shooter extends Component {
      * then procede in the same direction.
      */
     private Vector2 shootingVector = new Vector2(0,0);
-    private Vector2 shooterPosition = new Vector2(0,0);
 
-    public void trigger(Vector2 shooterPosition, Vector2 direction){
+    public void trigger( Vector2 direction){
         wantToShoot = true;
         shootingVector = direction;
-        this.shooterPosition = shooterPosition;
     }
 
     public boolean canShoot() {
@@ -43,9 +41,5 @@ public class Shooter extends Component {
 
     public Vector2 getShootingVector() {
         return shootingVector;
-    }
-
-    public Vector2 getShooterPosition() {
-        return shooterPosition;
     }
 }

@@ -3,6 +3,7 @@ package merkurius.ld27.screen;
 import fr.kohen.alexandre.framework.systems.*;
 import merkurius.ld27.EntityFactoryLD27;
 import fr.kohen.alexandre.framework.base.GameScreen;
+import merkurius.ld27.system.NpcSystem;
 import merkurius.ld27.system.ShootingSystem;
 import merkurius.ld27.system.PlayerSystem;
 import merkurius.ld27.system.SpawnSystem;
@@ -24,6 +25,7 @@ public class MainScreen extends GameScreen {
         world.setSystem( new DefaultTextSystem() );
         world.setSystem( new SpawnSystem() );
         world.setSystem( new ShootingSystem() );
+        world.setSystem( new NpcSystem() );
 	}
 	
 	@Override

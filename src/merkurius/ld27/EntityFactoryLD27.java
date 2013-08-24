@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.artemis.Entity;
 import com.artemis.World;
+import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.graphics.Color;
 
@@ -58,11 +59,15 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         Entity e = newActor(world, mapId, x, y, "lord_lard",10000)
                 .addComponent(new Player());
         world.getManager(TagManager.class).register("player", e);
+        world.getManager(GroupManager.class).add(e,"actors");
         return e;
     }
 
     public static Entity newEnnemy(World world, int mapId, float x, float y, int timeToLive) {
-        return newActor(world, mapId, x, y, "lord_lard",timeToLive).addComponent(new NPC());
+        Entity e = newActor(world, mapId, x, y, "lord_lard",timeToLive)
+                .addComponent(new NPC());
+        world.getManager(GroupManager.class).add(e,"actors");
+        return e;
     }
 
     public static Entity newBullet(World world, int mapId, Vector2 position, int timeToLive){
