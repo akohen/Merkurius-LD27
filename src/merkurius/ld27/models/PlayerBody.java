@@ -3,9 +3,12 @@ package merkurius.ld27.models;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import fr.kohen.alexandre.framework.base.C;
 import fr.kohen.alexandre.framework.model.PhysicsBody;
 
 public class PlayerBody extends PhysicsBody {
@@ -33,7 +36,12 @@ public class PlayerBody extends PhysicsBody {
         groundBox.setAsBox(0.8f, 1.4f);
         // Create a fixture from our polygon shape and add it to our ground body
         
-        body.createFixture(groundBox, 1.0f);
+        Fixture fixture = body.createFixture(groundBox, 1.0f);
+        
+        Filter filter = new Filter();
+        filter.categoryBits = C.CATEGORY_ACTOR;
+        filter.maskBits = (short) -1;
+		fixture.setFilterData(filter);
         
 		// Clean up after ourselves
         groundBox.dispose();

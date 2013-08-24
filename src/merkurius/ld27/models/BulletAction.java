@@ -1,11 +1,13 @@
 package merkurius.ld27.models;
 
 import com.artemis.managers.GroupManager;
+
 import merkurius.ld27.component.Actor;
 
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.World;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 
 import fr.kohen.alexandre.framework.components.Expires;
@@ -29,7 +31,11 @@ public class BulletAction implements Action {
 
 	@Override
 	public void beginContact(Entity e, Entity other, Contact contact) {
-		
+		Gdx.app.log("BulletACtion", "contact " + other);
+		if( world.getManager(GroupManager.class).inInGroup(other,"solid") ) {
+			e.deleteFromWorld();
+			contact.setEnabled(false);
+        }
 	}
 	
 	
@@ -45,7 +51,6 @@ public class BulletAction implements Action {
 	public void preSolve(Entity e, Entity other, Contact contact) {
 		Entity parent = world.getEntity( parentMapper.get(e).getParentId() );
 		if ( parent != other && actorMapper.has(other) ) {
-            System.out.println("if");
             expiresMapper.get(other).reduceLifeTime(4000);
 			if( parent != null && parent.isActive() ) {
 				expiresMapper.get(parent).increaseLifeTime(2000);
@@ -53,14 +58,6 @@ public class BulletAction implements Action {
 			e.deleteFromWorld();
 			contact.setEnabled(false);
 		}
-        else if (world.getManager(GroupManager.class).inInGroup(e,"solid")){
-            System.out.println("else if");
-           e.deleteFromWorld();
-           contact.setEnabled(false);
-        }
-        else{
-            System.out.println("else");
-        }
 	}
 
 	@Override
