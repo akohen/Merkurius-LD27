@@ -62,23 +62,23 @@ public class LD27AnimationSystem extends EntityProcessingSystem implements Anima
 		String currentAnim = visual.currentAnimationName;
 		
 		if( direction.angle() > 337.5 ) {
-			currentAnim = C.WALK_UP;
+			currentAnim = C.WALK_RIGHT;
 		} else if( direction.angle() > 292.5 ) {
-			currentAnim = C.WALK_UP_LEFT;
+			currentAnim = C.WALK_DOWN_RIGHT;
 		} else if( direction.angle() > 247.5 ) {
-			currentAnim = C.WALK_LEFT;
+			currentAnim = C.WALK_DOWN;
 		} else if( direction.angle() > 202.5 ) {
 			currentAnim = C.WALK_DOWN_LEFT;
 		} else if( direction.angle() > 157.5 ) {
-			currentAnim = C.WALK_DOWN;
+			currentAnim = C.WALK_LEFT;
 		} else if( direction.angle() > 112.5 ) {
-			currentAnim = C.WALK_DOWN_RIGHT;
+			currentAnim = C.WALK_UP_LEFT;
 		} else if( direction.angle() > 67.5 ) {
-			currentAnim = C.WALK_RIGHT;
+			currentAnim = C.WALK_UP;
 		} else if( direction.angle() > 22.5 ) {
 			currentAnim = C.WALK_UP_RIGHT;
 		} else{
-			currentAnim = C.WALK_UP;
+			currentAnim = C.WALK_RIGHT;
 		}
 		/*if( speed.len() < 1 )
 			return idleAnim(visual);
