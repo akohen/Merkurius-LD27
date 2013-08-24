@@ -14,6 +14,8 @@ import fr.kohen.alexandre.framework.model.Action;
 import fr.kohen.alexandre.framework.model.Visual;
 import fr.kohen.alexandre.framework.model.physicsBodies.BoxBody;
 import fr.kohen.alexandre.framework.model.visuals.CircleVisual;
+import merkurius.ld27.component.Actor;
+import merkurius.ld27.component.NPC;
 import merkurius.ld27.models.PlayerBody;
 import merkurius.ld27.visuals.LordLardVisual;
 
@@ -34,19 +36,29 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         e.addComponent( new EntityState() );
         return e;
     }
-	
-	public static Entity newPlayer(World world, int mapId, float x, float y) {
-		Entity e = world.createEntity();
-		world.getManager(TagManager.class).register("player", e);
-		e.addComponent( new Transform(mapId, x, y,1) );
-		e.addComponent( new Velocity() );
-		e.addComponent( new VisualComponent("lord_lard") );
+
+    public static Entity newActor(World world, int mapId, float x, float y, String visual){
+        Entity e = world.createEntity();
+        e.addComponent( new Transform(mapId, x, y,1) );
+        e.addComponent( new Velocity() );
+        e.addComponent( new VisualComponent("lord_lard") );
         e.addComponent( new PhysicsBodyComponent(new PlayerBody()) );
-        e.addComponent( new Player() );
-		e.addComponent( new EntityState() );
+        e.addComponent( new Actor() );
+        e.addComponent( new EntityState() );
         e.addComponent( new Expires(10000) );
-		return e;
-	}
+        return e;
+    }
+
+    public static Entity newPlayer(World world, int mapId, float x, float y) {
+        Entity e = newActor(world, mapId, x, y, "lord_lard")
+                .addComponent(new Player());
+        world.getManager(TagManager.class).register("player", e);
+        return e;
+    }
+
+    public static Entity newEnnemy(World world, int mapId, float x, float y) {
+        return newActor(world, mapId, x, y, "lord_lard").addComponent(new NPC());
+    }
 
 	public static Entity newCircle(World world, int mapId, float x, float y) {
 		Entity e = world.createEntity();

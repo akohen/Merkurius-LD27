@@ -28,6 +28,10 @@ public class MainScreen extends GameScreen {
 		
 		EntityFactoryLD27.newCircle(world, 1, 0, 0).addToWorld();
 
+        for (int i=-380; i< 380 ; i+= 20){
+            EntityFactoryLD27.newEnnemy(world,1,i, -50).addToWorld();
+        }
+
 		EntityFactoryLD27.newCamera(world, 1, 0, 0, 0, 0, 0, 800, 600, 0, "testCamera").addToWorld();
 	}
 
