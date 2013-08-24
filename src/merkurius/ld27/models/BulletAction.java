@@ -5,7 +5,6 @@ import merkurius.ld27.component.Actor;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.World;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 
 import fr.kohen.alexandre.framework.components.Expires;
@@ -29,15 +28,7 @@ public class BulletAction implements Action {
 
 	@Override
 	public void beginContact(Entity e, Entity other, Contact contact) {
-		Entity parent = world.getEntity( parentMapper.get(e).getParentId() );
-		Gdx.app.log("BulletAction", "contact entre " + e + " and " + other + " parent " + parent);
-		if ( parent != other && actorMapper.has(other) ) {
-			expiresMapper.get(other).reduceLifeTime(4000);
-			if( parent != null && parent.isActive() ) {
-				expiresMapper.get(parent).increaseLifeTime(2000);
-			}
-			e.deleteFromWorld();		
-		}
+		
 	}
 	
 	
@@ -49,8 +40,21 @@ public class BulletAction implements Action {
 	public void endContact(Entity e, Entity other, Contact contact) {
 	}
 
-	
+	@Override
+	public void preSolve(Entity e, Entity other, Contact contact) {
+		Entity parent = world.getEntity( parentMapper.get(e).getParentId() );
+		if ( parent != other && actorMapper.has(other) ) {
+			expiresMapper.get(other).reduceLifeTime(4000);
+			if( parent != null && parent.isActive() ) {
+				expiresMapper.get(parent).increaseLifeTime(2000);
+			}
+			e.deleteFromWorld();
+			contact.setEnabled(false);
+		}
+	}
 
-	
+	@Override
+	public void postSolve(Entity e, Entity other, Contact contact) {
+	}
 
 }

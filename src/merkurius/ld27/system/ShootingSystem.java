@@ -34,12 +34,12 @@ public class ShootingSystem extends EntityProcessingSystem {
         shooterMapper.get(e).decrementTimer((int) (world.getDelta()*1000));
         if (shooterMapper.get(e).isWantToShoot() && shooterMapper.get(e).canShoot()){
             Vector2 bulletPosition = transformMapper.get(e).getPosition2().cpy().add(shooterMapper.get(e).getShootingVector());
-            Vector2 bulletSpeed = new Vector2(0,4000);
+            Vector2 bulletSpeed = new Vector2(0,500);
             bulletSpeed.setAngle(shooterMapper.get(e).getShootingVector().angle());
-            Entity bullet = EntityFactoryLD27.newBullet( world, 1, bulletPosition, 3000, e.getId() );
+            Entity bullet = EntityFactoryLD27.newBullet( world, 1, bulletPosition, 2000, e.getId() );
             bullet.addToWorld();
             velocityMapper.get(bullet).setSpeed(bulletSpeed);
-            shooterMapper.get(e).setTimer(1000);
+            shooterMapper.get(e).setTimer(250);
             shooterMapper.get(e).setWantToShoot(false);
         } else{
             shooterMapper.get(e).setWantToShoot(false);

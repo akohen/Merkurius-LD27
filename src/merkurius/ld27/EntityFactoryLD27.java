@@ -31,7 +31,6 @@ import fr.kohen.alexandre.framework.components.Velocity;
 import fr.kohen.alexandre.framework.components.VisualComponent;
 import fr.kohen.alexandre.framework.model.Action;
 import fr.kohen.alexandre.framework.model.Visual;
-import fr.kohen.alexandre.framework.model.physicsBodies.BoxBody;
 import fr.kohen.alexandre.framework.model.visuals.CircleVisual;
 
 public class EntityFactoryLD27 extends EntityFactory {
@@ -87,22 +86,13 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         Entity e = world.createEntity();
         e.addComponent( new Transform(mapId,position.x,position.y,1) );
         e.addComponent( new VisualComponent("bullet") );
-        e.addComponent( new PhysicsBodyComponent(new BulletBody(5)) );
+        e.addComponent( new PhysicsBodyComponent(new BulletBody(0.5f)) );
         e.addComponent( new Expires(timeToLive) );
         e.addComponent( new Velocity() );
         e.addComponent( new ActionsComponent("bullet_action") );
         e.addComponent( new Parent(parentId) );
         return e;
     }
-
-	public static Entity newCircle(World world, int mapId, float x, float y) {
-		Entity e = world.createEntity();
-		e.addComponent( new Transform(mapId, x, y,-1) );
-		e.addComponent( new VisualComponent("circle") );
-		e.addComponent( new PhysicsBodyComponent(new BoxBody(100)) );
-		e.addComponent( new EntityState() );
-		return e;		
-	}
 	
 	public static Entity newText(World world, int mapId, float x, float y, String text) {
 		Entity e = world.createEntity();

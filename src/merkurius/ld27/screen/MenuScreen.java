@@ -32,7 +32,6 @@ public class MenuScreen extends GameScreen {
 		//EntityFactoryExamples.newLordLard(world, 1, 0, 125).addToWorld();
 		
 		//EntityFactoryTest.newBox(world, 1, 100, 0, 50).addToWorld();
-		EntityFactoryLD27.newCircle(world, 1, 0, 0).addToWorld();
 
 		EntityFactoryLD27.newCamera(world, 1, 0, 0, 0, 0, 0, 640, 480, 0, "testCamera").addToWorld();
 	}

@@ -69,6 +69,6 @@ public class NpcSystem extends EntityProcessingSystem {
     }
 
     private Vector2 direction(Entity first, Entity target){
-       return  transformMapper.get(target).getPosition2().cpy().sub(transformMapper.get(first).getPosition2()).nor().mul(10);
+       return  transformMapper.get(target).getPosition2().cpy().sub(transformMapper.get(first).getPosition2()).nor().mul(20);
     }
 }
