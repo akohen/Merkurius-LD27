@@ -10,6 +10,7 @@ import merkurius.ld27.models.BulletAction;
 import merkurius.ld27.models.BulletBody;
 import merkurius.ld27.models.PlayerBody;
 import merkurius.ld27.models.WallBody;
+import merkurius.ld27.visuals.BulletVisual;
 import merkurius.ld27.visuals.LordLardVisual;
 
 import com.artemis.Entity;
@@ -44,7 +45,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         visuals.put( "lord_lard", new LordLardVisual("lord_lard_sheet.png") );
         visuals.put( "herr_von_speck", new LordLardVisual("herr_von_speck_sheet.png") );
         visuals.put( "circle", new CircleVisual(50, Color.RED) );
-        visuals.put( "bullet", new CircleVisual(5, Color.GREEN));
+        visuals.put( "bullet", new BulletVisual());
         visuals.put( "wall", new BoxVisual(20,20, Color.BLUE));
         
         actions.put( "bullet_action", new BulletAction() );
