@@ -16,6 +16,7 @@ import fr.kohen.alexandre.framework.model.physicsBodies.BoxBody;
 import fr.kohen.alexandre.framework.model.visuals.CircleVisual;
 import merkurius.ld27.component.Actor;
 import merkurius.ld27.component.NPC;
+import merkurius.ld27.component.Shooter;
 import merkurius.ld27.models.PlayerBody;
 import merkurius.ld27.visuals.LordLardVisual;
 
@@ -46,6 +47,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         e.addComponent( new Actor() );
         e.addComponent( new EntityState() );
         e.addComponent( new Expires(timeToLive) );
+        e.addComponent( new Shooter());
         return e;
     }
 
