@@ -24,6 +24,7 @@ import fr.kohen.alexandre.framework.base.EntityFactory;
 import fr.kohen.alexandre.framework.components.ActionsComponent;
 import fr.kohen.alexandre.framework.components.EntityState;
 import fr.kohen.alexandre.framework.components.Expires;
+import fr.kohen.alexandre.framework.components.MapComponent;
 import fr.kohen.alexandre.framework.components.Parent;
 import fr.kohen.alexandre.framework.components.PhysicsBodyComponent;
 import fr.kohen.alexandre.framework.components.Player;
@@ -113,6 +114,13 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 		e.addComponent( new Transform(mapId, x, y, -1) );
 		e.addComponent( new TextComponent(text) );
 		e.addComponent( new EntityState() );
+		return e;
+	}
+
+	public static Entity newMap(World world, int mapId, String mapName, float x, float y) {
+		Entity e = world.createEntity();
+		e.addComponent( new MapComponent(mapId,mapName) );
+		e.addComponent( new Transform(mapId, x, y, 10) );
 		return e;
 	}
 	
