@@ -29,17 +29,16 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 
     public static Entity newTimeToLiveDisplay(World world, int mapId, float x, float y, String text) {
         Entity e = world.createEntity();
-        e.addComponent( new Transform(mapId, x, y) );
+        e.addComponent( new Transform(mapId, x, y, -1) );
         e.addComponent( new TextComponent(text,Color.BLACK) );
         e.addComponent( new EntityState() );
-        e.addComponent( new DepthComponent(10) );
         return e;
     }
 	
 	public static Entity newPlayer(World world, int mapId, float x, float y) {
 		Entity e = world.createEntity();
 		world.getManager(TagManager.class).register("player", e);
-		e.addComponent( new Transform(mapId, x, y) );
+		e.addComponent( new Transform(mapId, x, y,1) );
 		e.addComponent( new Velocity() );
 		e.addComponent( new VisualComponent("lord_lard") );
         e.addComponent( new PhysicsBodyComponent(new PlayerBody()) );
@@ -51,7 +50,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 
 	public static Entity newCircle(World world, int mapId, float x, float y) {
 		Entity e = world.createEntity();
-		e.addComponent( new Transform(mapId, x, y) );
+		e.addComponent( new Transform(mapId, x, y,-1) );
 		e.addComponent( new VisualComponent("circle") );
 		e.addComponent( new PhysicsBodyComponent(new BoxBody(100)) );
 		e.addComponent( new EntityState() );
@@ -60,10 +59,9 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 	
 	public static Entity newText(World world, int mapId, float x, float y, String text) {
 		Entity e = world.createEntity();
-		e.addComponent( new Transform(mapId, x, y) );
+		e.addComponent( new Transform(mapId, x, y, -1) );
 		e.addComponent( new TextComponent(text) );
 		e.addComponent( new EntityState() );
-		e.addComponent( new DepthComponent(10) );
 		return e;
 	}
 	
