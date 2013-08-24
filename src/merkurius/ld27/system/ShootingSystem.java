@@ -4,7 +4,9 @@ import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
+import com.badlogic.gdx.math.Vector2;
 import fr.kohen.alexandre.framework.components.Transform;
+import fr.kohen.alexandre.framework.components.Velocity;
 import merkurius.ld27.EntityFactoryLD27;
 import merkurius.ld27.component.Shooter;
 
@@ -12,34 +14,33 @@ public class ShootingSystem extends EntityProcessingSystem {
 
     protected ComponentMapper<Shooter>      shooterMapper;
     protected ComponentMapper<Transform> 	transformMapper;
+    protected ComponentMapper<Velocity>     velocityMapper;
 
     public ShootingSystem() {
-        super(Aspect.getAspectForAll(Shooter.class, Transform.class));
+        super(Aspect.getAspectForAll(Shooter.class, Transform.class, Velocity.class));
     }
 
     @Override
     public void initialize(){
         transformMapper = ComponentMapper.getFor(Transform.class, world);
         shooterMapper   = ComponentMapper.getFor(Shooter.class, world);
+        velocityMapper  = ComponentMapper.getFor(Velocity.class, world);
     }
 
     @Override
     protected void process(Entity e) {
         shooterMapper.get(e).decrementTimer((int) (world.getDelta()*1000));
         if (shooterMapper.get(e).isWantToShoot() && shooterMapper.get(e).canShoot()){
-            EntityFactoryLD27.newCircle(world, 1, playerX(e) + 5, playerY(e) + 5).addToWorld();
+            Vector2 bulletPosition = transformMapper.get(e).getPosition2().add(5,5);
+            Vector2 bulletSpeed = new Vector2(0,4000);
+            bulletSpeed.setAngle(shooterMapper.get(e).getShootingVector().angle());
+            Entity bullet = EntityFactoryLD27.newBullet(world, 1, bulletPosition, 3000);
+            bullet.addToWorld();
+            velocityMapper.get(bullet).setSpeed(bulletSpeed);
             shooterMapper.get(e).setTimer(1000);
         }
         else{
             shooterMapper.get(e).setWantToShoot(false);
         }
-    }
-
-    private float playerX(Entity e) {
-        return transformMapper.get(e).getPosition2().x;
-    }
-
-    private float playerY(Entity e) {
-        return transformMapper.get(e).getPosition2().y;
     }
 }

@@ -8,6 +8,7 @@ import com.artemis.World;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.graphics.Color;
 
+import com.badlogic.gdx.math.Vector2;
 import fr.kohen.alexandre.framework.base.EntityFactory;
 import fr.kohen.alexandre.framework.components.*;
 import fr.kohen.alexandre.framework.model.Action;
@@ -17,6 +18,7 @@ import fr.kohen.alexandre.framework.model.visuals.CircleVisual;
 import merkurius.ld27.component.Actor;
 import merkurius.ld27.component.NPC;
 import merkurius.ld27.component.Shooter;
+import merkurius.ld27.models.BulletBody;
 import merkurius.ld27.models.PlayerBody;
 import merkurius.ld27.visuals.LordLardVisual;
 
@@ -28,6 +30,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 	static {
         visuals.put( "lord_lard", new LordLardVisual() );
         visuals.put( "circle", new CircleVisual(50, Color.RED) );
+        visuals.put( "bullet", new CircleVisual(5, Color.GREEN));
 	}
 
     public static Entity newTimeToLiveDisplay(World world, int mapId, float x, float y, String text) {
@@ -60,6 +63,16 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 
     public static Entity newEnnemy(World world, int mapId, float x, float y, int timeToLive) {
         return newActor(world, mapId, x, y, "lord_lard",timeToLive).addComponent(new NPC());
+    }
+
+    public static Entity newBullet(World world, int mapId, Vector2 position, int timeToLive){
+        Entity e = world.createEntity();
+        e.addComponent( new Transform(mapId,position.x,position.y,1) );
+        e.addComponent( new VisualComponent("bullet") );
+        e.addComponent( new PhysicsBodyComponent(new BulletBody(5)));
+        e.addComponent(new Expires(timeToLive));
+        e.addComponent( new Velocity() );
+        return e;
     }
 
 	public static Entity newCircle(World world, int mapId, float x, float y) {
