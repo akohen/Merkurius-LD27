@@ -12,9 +12,9 @@ public class LordLardVisual extends Visual {
     private static final int        		FRAME_COLS = 6;
     private static final int        		FRAME_ROWS = 16;
 
-    public LordLardVisual() {
+    public LordLardVisual(String filename) {
         Texture.setEnforcePotImages(false);
-        Texture sheet = new Texture(Gdx.files.internal("data/examples/lord_lard_sheet.png"));
+        Texture sheet = new Texture(Gdx.files.internal("data/examples/"+filename));
 
         TextureRegion[][] tmp = TextureRegion.split(
                 sheet,

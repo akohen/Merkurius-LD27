@@ -39,7 +39,8 @@ public static Map<String, Visual> visuals = new HashMap<String, Visual>();
 public static Map<String, Action> actions = new HashMap<String, Action>();
 	
 	static {
-        visuals.put( "lord_lard", new LordLardVisual() );
+        visuals.put( "lord_lard", new LordLardVisual("lord_lard_sheet.png") );
+        visuals.put( "herr_von_speck", new LordLardVisual("herr_von_speck_sheet.png") );
         visuals.put( "circle", new CircleVisual(50, Color.RED) );
         visuals.put( "bullet", new CircleVisual(5, Color.GREEN));
         
@@ -58,7 +59,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         Entity e = world.createEntity();
         e.addComponent( new Transform(mapId, x, y,1) );
         e.addComponent( new Velocity() );
-        e.addComponent( new VisualComponent("lord_lard") );
+        e.addComponent( new VisualComponent(visual) );
         e.addComponent( new PhysicsBodyComponent(new PlayerBody()) );
         e.addComponent( new Actor() );
         e.addComponent( new EntityState() );
@@ -76,7 +77,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
     }
 
     public static Entity newEnnemy(World world, int mapId, float x, float y, int timeToLive) {
-        Entity e = newActor(world, mapId, x, y, "lord_lard",timeToLive)
+        Entity e = newActor(world, mapId, x, y, "herr_von_speck",timeToLive)
                 .addComponent(new NPC());
         world.getManager(GroupManager.class).add(e,"actors");
         return e;
