@@ -14,12 +14,9 @@ public class Shooter extends Component {
      */
     private Vector2 shootingVector = new Vector2(0,0);
 
-    public void trigger( Vector2 direction){
-        wantToShoot = true;
-        shootingVector = direction;
-    }
-
-    public boolean canShoot() {
+    public void aim(Vector2 direction) { shootingVector = direction; }
+    
+   public boolean canShoot() {
         return timer <= 0;
     }
 

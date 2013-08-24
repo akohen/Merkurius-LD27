@@ -43,7 +43,8 @@ public class NpcSystem extends EntityProcessingSystem {
         Entity closest = findClosestActor(e);
         Vector2 direction = direction(e,closest);
         goInDirectionOf(e,direction);
-        shooterMapper.get(e).trigger(direction);
+        shooterMapper.get(e).aim(direction);
+        shooterMapper.get(e).setWantToShoot(true);
     }
 
     private void goInDirectionOf(Entity e, Vector2 direction){

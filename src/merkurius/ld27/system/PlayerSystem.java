@@ -58,9 +58,11 @@ public class PlayerSystem extends EntityProcessingSystem {
     protected void process(Entity e) {
         double timeToLive = expiresMapper.get(e).getLifeTime() / 1000.0;
         timeToLiveDisplayComponent.text = new StringBuffer(NUMBER_FORMATTER.format(timeToLive));
+        Vector2 direction = mouseTransform.getPosition2().cpy().sub(transformMapper.get(e).getPosition2()).nor().mul(20);
+        shooterMapper.get(e).aim(direction);
+        
         if (mouseComponent.clicked){
-            Vector2 direction = mouseTransform.getPosition2().cpy().sub(transformMapper.get(e).getPosition2()).nor().mul(20);
-            shooterMapper.get(e).trigger(direction);
+        	 shooterMapper.get(e).setWantToShoot(true);
         }
     }
 }

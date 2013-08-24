@@ -10,7 +10,7 @@ public class MainScreen extends GameScreen {
 	@Override
 	protected void setSystems() {	
 		world.setSystem( new DefaultCameraSystem() );
-		world.setSystem( new DefaultAnimationSystem() );
+		world.setSystem( new LD27AnimationSystem() );
 		world.setSystem( new DefaultControlSystem(50) );
 		world.setSystem( new DefaultRenderSystem() );
 		world.setSystem( new DefaultVisualSystem(EntityFactoryLD27.visuals) );
