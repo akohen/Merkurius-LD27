@@ -37,6 +37,7 @@ public class BulletBody extends PhysicsBody {
         // Set its world position
         bodyDef.position.set(new Vector2(0, 10));
         bodyDef.type = BodyType.KinematicBody;
+        bodyDef.bullet = true;
 
         // Create a body from the defintion and add it to the world
         body = box2dworld.createBody(bodyDef);
@@ -55,7 +56,7 @@ public class BulletBody extends PhysicsBody {
         filter.maskBits = this.maskBits;
 
         fixture.setFilterData(filter);
-
+        
         // Clean up after ourselves
         groundBox.dispose();
 
