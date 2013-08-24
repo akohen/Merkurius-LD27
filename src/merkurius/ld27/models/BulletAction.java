@@ -1,13 +1,11 @@
 package merkurius.ld27.models;
 
-import com.artemis.managers.GroupManager;
-
 import merkurius.ld27.component.Actor;
 
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.World;
-import com.badlogic.gdx.Gdx;
+import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.physics.box2d.Contact;
 
 import fr.kohen.alexandre.framework.components.Expires;
@@ -31,7 +29,6 @@ public class BulletAction implements Action {
 
 	@Override
 	public void beginContact(Entity e, Entity other, Contact contact) {
-		Gdx.app.log("BulletACtion", "contact " + other);
 		if( world.getManager(GroupManager.class).inInGroup(other,"solid") ) {
 			e.deleteFromWorld();
 			contact.setEnabled(false);
