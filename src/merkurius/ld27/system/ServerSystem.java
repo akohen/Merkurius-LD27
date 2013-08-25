@@ -1,11 +1,15 @@
 package merkurius.ld27.system;
 
+import merkurius.ld27.ServerlistThread;
+
 import com.artemis.Entity;
 
 public class ServerSystem extends LD27SyncSystem {
 	
 	public ServerSystem(float delta, int port) {
 		super(delta, port);
+		ServerlistThread updateThread = new ServerlistThread();
+		updateThread.start();
 	}
 	
 	@Override

@@ -122,7 +122,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
     public static Entity newBulletClient(World world, int mapId, float x, float y, int ttl, int parentId, int syncId) {
     	return newBulletBase(world, mapId, x, y, ttl, parentId)
     			.addComponent( new Synchronize("bullet", syncId) )
-    			.addComponent( new ActionsComponent("bullet_action") );
+    			.addComponent( new ActionsComponent("bullet_action_client") );
     }
     
     private static Entity newBulletBase(World world, int mapId, float x, float y, int timeToLive, int parentId) {
