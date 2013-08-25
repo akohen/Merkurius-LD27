@@ -93,7 +93,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
     }
     
     public static Entity newPlayer(World world, int mapId, float x, float y, int syncId) {
-        Entity e = newActor(world, mapId, x, y, "lord_lard",100000)
+        Entity e = newActor(world, mapId, x, y, "lord_lard",60000)
                 .addComponent( new Synchronize("player", syncId) );
         return e;
     }

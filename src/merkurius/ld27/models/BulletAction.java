@@ -48,9 +48,9 @@ public class BulletAction implements Action {
 	public void preSolve(Entity e, Entity other, Contact contact) {
 		Entity parent = world.getEntity( parentMapper.get(e).getParentId() );
 		if ( parent != other && actorMapper.has(other) ) {
-            expiresMapper.get(other).reduceLifeTime(4000);
+            expiresMapper.get(other).reduceLifeTime(10000);
 			if( parent != null && parent.isActive() ) {
-				expiresMapper.get(parent).increaseLifeTime(2000);
+				expiresMapper.get(parent).increaseLifeTime(10000);
 			}
 			e.deleteFromWorld();
 			contact.setEnabled(false);

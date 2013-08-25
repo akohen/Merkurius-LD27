@@ -2,15 +2,13 @@ package merkurius.ld27.screen;
 
 import java.net.UnknownHostException;
 
-import com.badlogic.gdx.Gdx;
-
 import merkurius.ld27.EntityFactoryLD27;
 import merkurius.ld27.system.ClientSystem;
 import merkurius.ld27.system.LD27AnimationSystem;
 import merkurius.ld27.system.LD27InputSystem;
 import merkurius.ld27.system.LD27MapSystem;
-import merkurius.ld27.system.NpcSystem;
 import merkurius.ld27.system.LD27PlayerSystem;
+import merkurius.ld27.system.NpcSystem;
 import merkurius.ld27.system.ScaledBox2DSystem;
 import merkurius.ld27.system.ServerSystem;
 import merkurius.ld27.system.ShootingSystem;
@@ -82,7 +80,7 @@ public class MainScreen extends GameScreen {
 		if( isServer ) {
 			EntityFactoryLD27.newPlayer(world, 1, 0, 125, 0).addComponent(new Player(0)).addToWorld();
 		} else {
-			try { syncSystem.connect(address, 4445); Gdx.app.log("screen", "connecting to " + address);}
+			try { syncSystem.connect(address, 4445); }
 			catch (UnknownHostException e) { e.printStackTrace(); }
 		}
 	}

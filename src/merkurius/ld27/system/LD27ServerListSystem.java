@@ -80,14 +80,15 @@ public class LD27ServerListSystem extends IntervalEntityProcessingSystem {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	
+    	int y = 0;
     	for(String address : serversIP) {
     		if( !address.equalsIgnoreCase(" ") ) {
-    			Entity server = EntityFactoryLD27.newClientButton(world, 1, 0, 0, address);
+    			Entity server = EntityFactoryLD27.newClientButton(world, 1, 0, y, address);
     			server.addToWorld();
     			servers.add(server);
     			Gdx.app.log("Server", address);
     		}
+    		y += 50;
     	}
 	}
 	@Override
