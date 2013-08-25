@@ -24,7 +24,7 @@ public class MainScreen extends GameScreen {
         world.setSystem( new SpawnSystem() );
         world.setSystem( new ShootingSystem() );
         world.setSystem( new NpcSystem() );	
-		world.setSystem( new DefaultMapSystem() );
+		world.setSystem( new LD27MapSystem() );
 	}
 	
 	@Override
@@ -32,11 +32,7 @@ public class MainScreen extends GameScreen {
 		EntityFactoryLD27.newPlayer(world, 1, 0, 125).addToWorld();
 		EntityFactoryLD27.newCamera(world, 1, 0, 0, 0, 0, 0, 800, 600, 0, "cameraFollowPlayer").addToWorld();
 		EntityFactoryLD27.newCamera(world, 2, 0, 0, 0, 0, 0, 800, 600, 0, "cameraInterface").addToWorld();
-		EntityFactoryLD27.newMap(world, 1, "data/examples/map1.tmx", -400, -400).addToWorld();
-
-        for (int i=-400;i<400; i+=80){
-            EntityFactoryLD27.newWallDisplay(world,1,i,-150,20,20).addToWorld();
-        }
+		EntityFactoryLD27.newMap(world, 1, "data/examples/map1.tmx", -500, -400).addToWorld();   
 	}
 
 }

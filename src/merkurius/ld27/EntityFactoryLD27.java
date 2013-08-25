@@ -52,10 +52,9 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         actions.put( "bullet_action", new BulletAction() );
 	}
 
-    public static Entity newWallDisplay(World world, int mapId, int x, int y, int width, int height){
+    public static Entity newWall(World world, int mapId, float x, float y, int width, int height){
         Entity e = world.createEntity();
         e.addComponent( new Transform(mapId, x, y, -1) );
-        e.addComponent( new VisualComponent("wall") );
         e.addComponent( new PhysicsBodyComponent(new WallBody(width / 10 ,height / 10)) );
         world.getManager(GroupManager.class).add(e,"solid");
         return e;
