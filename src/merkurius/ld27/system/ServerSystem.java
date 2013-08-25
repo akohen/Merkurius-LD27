@@ -3,12 +3,15 @@ package merkurius.ld27.system;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 
-import com.artemis.ComponentMapper;
-import com.artemis.Entity;
-
 import merkurius.ld27.EntityFactoryLD27;
 import merkurius.ld27.LD27GameClient;
 import merkurius.ld27.component.Shooter;
+
+import com.artemis.ComponentMapper;
+import com.artemis.Entity;
+
+import fr.kohen.alexandre.framework.components.Parent;
+import fr.kohen.alexandre.framework.components.Player;
 import fr.kohen.alexandre.framework.components.Synchronize;
 import fr.kohen.alexandre.framework.components.Transform;
 import fr.kohen.alexandre.framework.components.Velocity;
@@ -16,10 +19,11 @@ import fr.kohen.alexandre.framework.network.GameClient;
 import fr.kohen.alexandre.framework.systems.DefaultSyncSystem;
 
 public class ServerSystem extends DefaultSyncSystem {
-	private ComponentMapper<Synchronize> 	syncMapper;
 	private ComponentMapper<Transform> 		transformMapper;
 	private ComponentMapper<Velocity> 		velocityMapper;
 	private ComponentMapper<Shooter> 		shooterMapper;
+	private ComponentMapper<Player> 		playerMapper;
+	private ComponentMapper<Parent> 		parentMapper;
 	
 	
 	public ServerSystem(float delta, int port) {
@@ -28,10 +32,11 @@ public class ServerSystem extends DefaultSyncSystem {
 	
 	protected void initialize() {
 		super.initialize();
-        syncMapper  	= ComponentMapper.getFor(Synchronize.class, world);
 		transformMapper = ComponentMapper.getFor(Transform.class, world);
         velocityMapper  = ComponentMapper.getFor(Velocity.class, world);
         shooterMapper   = ComponentMapper.getFor(Shooter.class, world);
+        playerMapper   	= ComponentMapper.getFor(Player.class, world);
+        parentMapper   	= ComponentMapper.getFor(Parent.class, world);
 	}
 	
 	
@@ -41,9 +46,10 @@ public class ServerSystem extends DefaultSyncSystem {
 	}
 
 	public GameClient newClient(DatagramPacket packet, int port) {
-		Entity player = EntityFactoryLD27.newActor(world, 1, 0, 0, "lord_lard", 10000);
+		int playerId = newPlayerId();
+		Entity player = EntityFactoryLD27.newPlayer( world, 1, -50, -50, 0 ).addComponent( new Player(playerId) );
 		player.addToWorld();
-		return new LD27GameClient(packet.getAddress(), port, packet.getPort(), getPlayerId(), player);
+		return new LD27GameClient(packet.getAddress(), port, packet.getPort(), playerId, player);
 	}
 
 
@@ -53,6 +59,8 @@ public class ServerSystem extends DefaultSyncSystem {
 		Transform	transform	= transformMapper	.getSafe(e);
 		Velocity	velocity	= velocityMapper	.getSafe(e);
 		Shooter		shooter		= shooterMapper		.getSafe(e);
+		Player		player		= playerMapper		.getSafe(e);
+		Parent		parent		= parentMapper		.getSafe(e);
 		
 		// Creating the message
 		String message = "update " + sync.getType() + " " + e.getId();
@@ -65,8 +73,13 @@ public class ServerSystem extends DefaultSyncSystem {
 		
 		if( shooter != null )
 			message += " " + shooter.getShootingVector().x + " " + shooter.getShootingVector().y + " " + shooter.isWantToShoot();
-	
-		// Sending the message for each client
+		
+		if( player != null )
+			message += " " + player.playerId;
+		
+		if( parent != null )
+				message += " " + parent.parentId;
+		
 		send(message);
 	}
 
@@ -76,5 +89,11 @@ public class ServerSystem extends DefaultSyncSystem {
 	protected void connected(int clientId) { }
 	@Override
 	protected GameClient addHost(InetAddress inetAddress, int port) { return null; }
+
+	@Override
+	protected void newEntity(EntityUpdate entityUpdate, int id) {}
+
+	@Override
+	protected void updateEntity(Entity e, EntityUpdate update) {}
 
 }

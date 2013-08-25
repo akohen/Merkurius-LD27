@@ -21,7 +21,7 @@ public class SpawnSystem extends EntityProcessingSystem {
             float x = (float) (- 400.0 + Math.random() * 800);
             float y = (float) (- 300.0 + Math.random() * 600);
             int timeToLive = (int) (7000 + 6000 * Math.random());
-            EntityFactoryLD27.newEnnemy(world,1,x,y,timeToLive).addToWorld();
+            EntityFactoryLD27.newEnemy(world,1,x,y,timeToLive).addToWorld();
         }
         numberOfEnnemiesToAdd = 0;
     }

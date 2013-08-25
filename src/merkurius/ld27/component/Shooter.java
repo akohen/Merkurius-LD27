@@ -5,16 +5,11 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Shooter extends Component {
 
-    private int timer = 0;
-    private boolean wantToShoot = false;
+    public int timer = 0;
+    public boolean firing = false;
+    public Vector2 aim = new Vector2(0,0);
 
-    /**
-     * X and Y are used to determine the starting point of the shoot relative to the entity position. The shoot should
-     * then procede in the same direction.
-     */
-    private Vector2 shootingVector = new Vector2(0,0);
-
-    public void aim(Vector2 direction) { shootingVector = direction; }
+    public void aim(Vector2 direction) { aim = direction; }
     
    public boolean canShoot() {
         return timer <= 0;
@@ -29,14 +24,14 @@ public class Shooter extends Component {
     }
 
     public boolean isWantToShoot() {
-        return wantToShoot;
+        return firing;
     }
 
     public void setWantToShoot(boolean wantToShoot) {
-        this.wantToShoot = wantToShoot;
+        this.firing = wantToShoot;
     }
 
     public Vector2 getShootingVector() {
-        return shootingVector;
+        return aim;
     }
 }

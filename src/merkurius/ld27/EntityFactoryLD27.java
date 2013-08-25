@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import merkurius.ld27.component.Actor;
+import merkurius.ld27.component.Input;
 import merkurius.ld27.component.NPC;
 import merkurius.ld27.component.Shooter;
 import merkurius.ld27.models.BulletAction;
@@ -16,9 +17,7 @@ import merkurius.ld27.visuals.LordLardVisual;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.artemis.managers.GroupManager;
-import com.artemis.managers.TagManager;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
 
 import fr.kohen.alexandre.framework.base.EntityFactory;
 import fr.kohen.alexandre.framework.components.ActionsComponent;
@@ -27,7 +26,6 @@ import fr.kohen.alexandre.framework.components.Expires;
 import fr.kohen.alexandre.framework.components.MapComponent;
 import fr.kohen.alexandre.framework.components.Parent;
 import fr.kohen.alexandre.framework.components.PhysicsBodyComponent;
-import fr.kohen.alexandre.framework.components.Player;
 import fr.kohen.alexandre.framework.components.Synchronize;
 import fr.kohen.alexandre.framework.components.TextComponent;
 import fr.kohen.alexandre.framework.components.Transform;
@@ -69,7 +67,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         return e;
     }
 
-    public static Entity newActor(World world, int mapId, float x, float y, String visual, int timeToLive){
+    private static Entity newActor(World world, int mapId, float x, float y, String visual, int timeToLive){
         Entity e = world.createEntity();
         world.getManager(GroupManager.class).add(e,"actors");
         e.addComponent( new Transform(mapId, x, y,1) );
@@ -80,26 +78,42 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         e.addComponent( new EntityState() );
         e.addComponent( new Expires(timeToLive) );
         e.addComponent( new Shooter());
-        e.addComponent( new Synchronize("actor"));
+        e.addComponent( new Input());
         return e;
     }
-
-    public static Entity newPlayer(World world, int mapId, float x, float y) {
+    
+    public static Entity newPlayer(World world, int mapId, float x, float y, int syncId) {
         Entity e = newActor(world, mapId, x, y, "lord_lard",100000)
-                .addComponent(new Player());
-        world.getManager(TagManager.class).register("player", e);
+                .addComponent( new Synchronize("player", syncId) );
         return e;
     }
 
-    public static Entity newEnnemy(World world, int mapId, float x, float y, int timeToLive) {
+    public static Entity newEnemy(World world, int mapId, float x, float y, int timeToLive) {
         Entity e = newActor(world, mapId, x, y, "herr_von_speck",timeToLive)
-                .addComponent(new NPC());
+                .addComponent(new NPC())
+                .addComponent( new Synchronize("npc"));
+        return e;
+    }
+    
+    public static Entity newEnemy(World world, int mapId, float x, float y, int timeToLive, int syncId) {
+        Entity e = newActor(world, mapId, x, y, "herr_von_speck",timeToLive)
+                .addComponent(new NPC())
+                .addComponent( new Synchronize("npc", syncId));
         return e;
     }
 
-    public static Entity newBullet(World world, int mapId, Vector2 position, int timeToLive, int parentId){
+    
+    public static Entity newBullet(World world, int mapId, float x, float y, int ttl, int parentId) {
+    	return newBulletBase(world, mapId, x, y, ttl, parentId).addComponent( new Synchronize("bullet") );
+    }
+    
+    public static Entity newBullet(World world, int mapId, float x, float y, int ttl, int parentId, int syncId) {
+    	return newBulletBase(world, mapId, x, y, ttl, parentId).addComponent( new Synchronize("bullet", syncId) );
+    }
+    
+    private static Entity newBulletBase(World world, int mapId, float x, float y, int timeToLive, int parentId) {
         Entity e = world.createEntity();
-        e.addComponent( new Transform(mapId,position.x,position.y,1) );
+        e.addComponent( new Transform(mapId, x, y, 1) );
         e.addComponent( new VisualComponent("bullet") );
         e.addComponent( new PhysicsBodyComponent(new BulletBody(0.5f)) );
         e.addComponent( new Expires(timeToLive) );

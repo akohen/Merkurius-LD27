@@ -36,7 +36,7 @@ public class ShootingSystem extends EntityProcessingSystem {
             Vector2 bulletPosition = transformMapper.get(e).getPosition2().cpy().add(shooterMapper.get(e).getShootingVector());
             Vector2 bulletSpeed = new Vector2(0,750);
             bulletSpeed.setAngle(shooterMapper.get(e).getShootingVector().angle());
-            Entity bullet = EntityFactoryLD27.newBullet( world, 1, bulletPosition, 1000, e.getId() );
+            Entity bullet = EntityFactoryLD27.newBullet( world, 1, bulletPosition.x, bulletPosition.y, 1000, e.getId() );
             bullet.addToWorld();
             velocityMapper.get(bullet).setSpeed(bulletSpeed);
             shooterMapper.get(e).setTimer(250);
