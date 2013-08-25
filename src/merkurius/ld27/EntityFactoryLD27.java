@@ -6,11 +6,15 @@ import java.util.Map;
 import merkurius.ld27.component.Actor;
 import merkurius.ld27.component.Input;
 import merkurius.ld27.component.NPC;
+import merkurius.ld27.component.Server;
 import merkurius.ld27.component.Shooter;
 import merkurius.ld27.models.BulletAction;
 import merkurius.ld27.models.BulletBody;
 import merkurius.ld27.models.BulletClientAction;
+import merkurius.ld27.models.ClientScreenAction;
 import merkurius.ld27.models.PlayerBody;
+import merkurius.ld27.models.ServerScreenAction;
+import merkurius.ld27.models.ServerlistScreenAction;
 import merkurius.ld27.models.WallBody;
 import merkurius.ld27.visuals.BulletVisual;
 import merkurius.ld27.visuals.LordLardVisual;
@@ -34,6 +38,7 @@ import fr.kohen.alexandre.framework.components.Velocity;
 import fr.kohen.alexandre.framework.components.VisualComponent;
 import fr.kohen.alexandre.framework.model.Action;
 import fr.kohen.alexandre.framework.model.Visual;
+import fr.kohen.alexandre.framework.model.physicsBodies.BoxBody;
 import fr.kohen.alexandre.framework.model.visuals.BoxVisual;
 import fr.kohen.alexandre.framework.model.visuals.CircleVisual;
 
@@ -51,6 +56,9 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 
         actions.put( "bullet_action", new BulletAction() );
         actions.put( "bullet_action_client", new BulletClientAction() );
+        actions.put( "server_button", new ServerScreenAction() );
+        actions.put( "serverlist_button", new ServerlistScreenAction() );
+        actions.put( "client_button", new ClientScreenAction() );
 	}
 
     public static Entity newWall(World world, int mapId, float x, float y, int width, int height){
@@ -131,7 +139,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 	public static Entity newText(World world, int mapId, float x, float y, String text) {
 		Entity e = world.createEntity();
 		e.addComponent( new Transform(mapId, x, y, -1) );
-		e.addComponent( new TextComponent(text) );
+		e.addComponent( new TextComponent(text, Color.BLACK) );
 		e.addComponent( new EntityState() );
 		return e;
 	}
@@ -141,6 +149,25 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 		e.addComponent( new MapComponent(mapId,mapName) );
 		e.addComponent( new Transform(mapId, x, y, 10) );
 		return e;
+	}
+
+	public static Entity newServerButton(World world, int mapId, int x, int y) {
+		return newText(world, mapId, x, y, "Start Server")
+				.addComponent( new PhysicsBodyComponent(new BoxBody(100,50)) )
+				.addComponent( new ActionsComponent("server_button") );
+	}
+
+	public static Entity newServerlistButton(World world, int mapId, int x, int y) {
+		return newText(world, mapId, x, y, "Play online")
+				.addComponent( new PhysicsBodyComponent(new BoxBody(100,50)) )
+				.addComponent( new ActionsComponent("serverlist_button") );
+	}
+	
+	public static Entity newClientButton(World world, int mapId, int x, int y, String address) {
+		return newText(world, mapId, x, y, "Connect to " + address)
+				.addComponent( new PhysicsBodyComponent(new BoxBody(100,50)) )
+				.addComponent( new ActionsComponent("client_button") )
+				.addComponent( new Server(address) );
 	}
 	
 	
