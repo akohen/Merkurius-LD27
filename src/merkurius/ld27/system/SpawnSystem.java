@@ -8,7 +8,8 @@ import merkurius.ld27.component.NPC;
 
 public class SpawnSystem extends EntityProcessingSystem {
 
-    private int numberOfEnnemiesToAdd = 0;
+    private int numberOfEnnemiesToAdd = 2;
+    private int cooldown = 50;
 
     @SuppressWarnings("unchecked")
     public SpawnSystem() {
@@ -17,13 +18,19 @@ public class SpawnSystem extends EntityProcessingSystem {
 
     @Override
     protected void begin(){
-        for (int i =0; i < numberOfEnnemiesToAdd ;i++){
-            float x = (float) (- 400.0 + Math.random() * 800);
-            float y = (float) (- 300.0 + Math.random() * 600);
-            int timeToLive = (int) (7000 + 6000 * Math.random());
-            EntityFactoryLD27.newEnemy(world,1,x,y,timeToLive).addToWorld();
-        }
-        numberOfEnnemiesToAdd = 0;
+    	if( numberOfEnnemiesToAdd > 0 ) {
+    		if ( cooldown == 0 ) {
+	    		float x = (float) (- 400.0 + Math.random() * 800);
+	            float y = (float) (- 300.0 + Math.random() * 600);
+	            int timeToLive = (int) (7000 + 6000 * Math.random());
+	            EntityFactoryLD27.newEnemy(world,1,x,y,timeToLive).addToWorld();
+	            numberOfEnnemiesToAdd--;
+	            cooldown = 50;
+    		} else {
+    			cooldown--;
+    		}
+    	}
+        
     }
 
     @Override

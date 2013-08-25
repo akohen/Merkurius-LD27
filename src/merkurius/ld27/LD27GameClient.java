@@ -35,7 +35,10 @@ public class LD27GameClient implements GameClient {
 	
 	@Override
 	public boolean checkPacket(DatagramPacket packet) {
-		return false;
+		if( packet.getAddress().getHostAddress().equalsIgnoreCase(address.getHostAddress()) && packet.getPort() == portOut )
+			return true;
+		else
+			return false;
 	}
 	
 

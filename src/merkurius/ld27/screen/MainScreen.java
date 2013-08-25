@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 import merkurius.ld27.EntityFactoryLD27;
 import merkurius.ld27.system.ClientSystem;
 import merkurius.ld27.system.LD27AnimationSystem;
+import merkurius.ld27.system.LD27InputSystem;
 import merkurius.ld27.system.LD27MapSystem;
 import merkurius.ld27.system.NpcSystem;
 import merkurius.ld27.system.LD27PlayerSystem;
@@ -34,6 +35,12 @@ public class MainScreen extends GameScreen {
 	@Override
 	protected void setSystems() {	
 		
+		if( isServer ) {
+			world.setSystem( new ServerSystem(0.03f, 4445) );
+		} else {
+			syncSystem = world.setSystem( new ClientSystem() );
+		}
+			
 		world.setSystem( new DefaultCameraSystem() );
 		//world.setSystem( new DefaultControlSystem(50) );
 		world.setSystem( new DefaultRenderSystem(0,0,0,0) );
@@ -46,14 +53,13 @@ public class MainScreen extends GameScreen {
         world.setSystem( new DefaultTextSystem() );
 		world.setSystem( new LD27MapSystem() );
 		world.setSystem( new LD27AnimationSystem() );	
+		world.setSystem( new LD27InputSystem() );	
         if( isServer ) {
-			world.setSystem( new ServerSystem(0.1f, 4445) );
-	        world.setSystem( new LD27PlayerSystem(0) );
+			world.setSystem( new LD27PlayerSystem(0) );
 	        world.setSystem( new ShootingSystem() );
 	        world.setSystem( new SpawnSystem() );
 	        world.setSystem( new NpcSystem() );
 		} else {
-			syncSystem = world.setSystem( new ClientSystem() );
 			world.setSystem( new LD27PlayerSystem() );
 		}
 		
