@@ -78,3 +78,4 @@ public class NpcSystem extends EntityProcessingSystem {
        return  transformMapper.get(target).getPosition2().cpy().sub(transformMapper.get(first).getPosition2()).nor().mul(20);
     }
 }
+
