@@ -28,6 +28,7 @@ import fr.kohen.alexandre.framework.components.MapComponent;
 import fr.kohen.alexandre.framework.components.Parent;
 import fr.kohen.alexandre.framework.components.PhysicsBodyComponent;
 import fr.kohen.alexandre.framework.components.Player;
+import fr.kohen.alexandre.framework.components.Synchronize;
 import fr.kohen.alexandre.framework.components.TextComponent;
 import fr.kohen.alexandre.framework.components.Transform;
 import fr.kohen.alexandre.framework.components.Velocity;
@@ -70,6 +71,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
 
     public static Entity newActor(World world, int mapId, float x, float y, String visual, int timeToLive){
         Entity e = world.createEntity();
+        world.getManager(GroupManager.class).add(e,"actors");
         e.addComponent( new Transform(mapId, x, y,1) );
         e.addComponent( new Velocity() );
         e.addComponent( new VisualComponent(visual) );
@@ -78,6 +80,7 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         e.addComponent( new EntityState() );
         e.addComponent( new Expires(timeToLive) );
         e.addComponent( new Shooter());
+        e.addComponent( new Synchronize("actor"));
         return e;
     }
 
@@ -85,14 +88,12 @@ public static Map<String, Action> actions = new HashMap<String, Action>();
         Entity e = newActor(world, mapId, x, y, "lord_lard",100000)
                 .addComponent(new Player());
         world.getManager(TagManager.class).register("player", e);
-        world.getManager(GroupManager.class).add(e,"actors");
         return e;
     }
 
     public static Entity newEnnemy(World world, int mapId, float x, float y, int timeToLive) {
         Entity e = newActor(world, mapId, x, y, "herr_von_speck",timeToLive)
                 .addComponent(new NPC());
-        world.getManager(GroupManager.class).add(e,"actors");
         return e;
     }
 

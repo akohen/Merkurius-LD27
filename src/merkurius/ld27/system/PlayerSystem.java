@@ -63,6 +63,8 @@ public class PlayerSystem extends EntityProcessingSystem {
         
         if (mouseComponent.clicked){
         	 shooterMapper.get(e).setWantToShoot(true);
+        } else {
+        	shooterMapper.get(e).setWantToShoot(false);
         }
     }
 }

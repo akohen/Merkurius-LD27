@@ -41,8 +41,6 @@ public class ShootingSystem extends EntityProcessingSystem {
             velocityMapper.get(bullet).setSpeed(bulletSpeed);
             shooterMapper.get(e).setTimer(250);
             shooterMapper.get(e).setWantToShoot(false);
-        } else{
-            shooterMapper.get(e).setWantToShoot(false);
         }
     }
 }
