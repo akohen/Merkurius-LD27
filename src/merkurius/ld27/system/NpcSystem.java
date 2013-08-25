@@ -42,7 +42,14 @@ public class NpcSystem extends EntityProcessingSystem {
     protected void process(Entity e) {
 	    Entity closest = findClosestActor(e);
 	    Vector2 direction = direction(e,closest);
-	    goInDirectionOf(e,direction);
+	    if (dist(e,closest) < 100){
+	    	Vector2 tangent = direction.cpy();
+	    	tangent.setAngle(tangent.angle() + 90);
+	    	goInDirectionOf(e,tangent);
+	    }
+	    else{
+	    	 goInDirectionOf(e,direction);
+	    } 
 	    shooterMapper.get(e).aim(direction);
 	    //shooterMapper.get(e).setWantToShoot(true);
     }
