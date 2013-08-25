@@ -3,7 +3,9 @@ package merkurius.ld27.system;
 import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
+
 import merkurius.ld27.EntityFactoryLD27;
+import merkurius.ld27.SoundPlayer;
 import merkurius.ld27.component.NPC;
 
 public class SpawnSystem extends EntityProcessingSystem {
@@ -36,6 +38,7 @@ public class SpawnSystem extends EntityProcessingSystem {
     @Override
     protected void removed(Entity e) {
         numberOfEnnemiesToAdd ++;
+        SoundPlayer.play("death"+ (Math.random() > 0.5 ? 1 : 2));
     }
 
     @Override

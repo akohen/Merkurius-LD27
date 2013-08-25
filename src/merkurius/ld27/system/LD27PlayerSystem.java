@@ -88,6 +88,7 @@ public class LD27PlayerSystem extends EntityProcessingSystem implements PlayerSy
 			Vector2 direction = mouseTransform.getPosition2().cpy().sub(transformMapper.get(e).getPosition2()).nor().mul(20);
 			shooterMapper.get(e).aim(direction);
 			double timeToLive = expiresMapper.get(e).getLifeTime() / 1000.0;
+			if (timeToLive <0) timeToLive = 0;
 	        timeToLiveDisplayComponent.text = new StringBuffer(NUMBER_FORMATTER.format(timeToLive));
 	        world.getManager(TagManager.class).register("player", e);
 	        

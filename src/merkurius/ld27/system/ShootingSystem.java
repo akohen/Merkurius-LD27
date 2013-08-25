@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import fr.kohen.alexandre.framework.components.Transform;
 import fr.kohen.alexandre.framework.components.Velocity;
 import merkurius.ld27.EntityFactoryLD27;
+import merkurius.ld27.SoundPlayer;
 import merkurius.ld27.component.Shooter;
 
 public class ShootingSystem extends EntityProcessingSystem {
@@ -41,6 +42,8 @@ public class ShootingSystem extends EntityProcessingSystem {
             velocityMapper.get(bullet).setSpeed(bulletSpeed);
             shooterMapper.get(e).setTimer(250);
             shooterMapper.get(e).setWantToShoot(false);
+            int soundNumber = (int) (1 + 5 * Math.random());
+            SoundPlayer.play("shoot"+soundNumber);
         }
     }
 }
